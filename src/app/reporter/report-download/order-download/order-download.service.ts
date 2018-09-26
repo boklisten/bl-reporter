@@ -22,6 +22,7 @@ export class OrderDownloadService {
 	public async printFilteredOrdersToFile(filter: DatabaseReportOrderFilter): Promise<boolean> {
 		try {
 			const orders = await this.getOrdersByFilter(filter);
+      console.log('the orders', orders);
 			await this.printOrdersToExcel(orders, filter);
 
 			return true;
@@ -41,7 +42,7 @@ export class OrderDownloadService {
 		for (const order of orders) {
 			const excelObjects = await this.orderToExcelObjects(order, filter);
 			allExcelObjects = allExcelObjects.concat(excelObjects);
-		}
+    }
 		this._databaseExcelService.objectsToExcelFile(allExcelObjects, 'orders.xlxs');
 
 		return true;
@@ -51,17 +52,18 @@ export class OrderDownloadService {
 		const excelObjects: any[] = [];
 
 		for (const orderItem of order.orderItems) {
+      /*
 			if (filter.orderItemNotDelivered) {
 				if (typeof orderItem.movedToOrder !== 'undefined') {
 					continue;
-				}
-
-				if (typeof orderItem.info !== 'undefined') {
-					if (typeof orderItem.info.customerItem !== 'undefined')  {
-						continue;
-					}
-				}
-			}
+        }
+      }
+			if (typeof orderItem.info !== 'undefined') {
+        if (typeof orderItem.info.customerItem !== 'undefined')  {
+          continue;
+        }
+      }
+       */
 
 			excelObjects.push({
 				orderId: order.id,

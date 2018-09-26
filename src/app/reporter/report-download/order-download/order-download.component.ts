@@ -23,6 +23,7 @@ export class OrderDownloadComponent implements OnInit {
 	}
 
 	ngOnInit() {
+    this.noOrdersFound = false;
 		this.notDelivered = false;
 		this.fromDate = new Date(2001, 0, 0);
 		this.toDate = new Date();
@@ -63,6 +64,4 @@ export class OrderDownloadComponent implements OnInit {
 			this.wait = false;
 		});
 	}
-
-
 }

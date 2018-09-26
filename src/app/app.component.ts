@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from '@wizardcoder/bl-connect';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'bl-reporter';
+  constructor(private loginService: LoginService) {
+    this.loginService.login("aholskil@gmail.com", "password").then(() => {
+      console.log('logged in!');
+    }).catch(() => {
+      console.log('could not login');
+    });
+  }
 }

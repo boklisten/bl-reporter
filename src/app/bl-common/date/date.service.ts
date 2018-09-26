@@ -72,6 +72,7 @@ export class DateService {
 	public getYearPeriod(): {fromDate: Date, toDate: Date} {
 		const toDate = this.getCurrentDate().add(1, 'day');
 		const fromDate = this.getCurrentDate().subtract(1, 'year');
+    console.log('from', fromDate, 'toDate', toDate);
 		return {
 			fromDate: fromDate.toDate(),
 			toDate: toDate.toDate()

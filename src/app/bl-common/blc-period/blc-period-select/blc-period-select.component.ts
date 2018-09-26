@@ -16,9 +16,9 @@ export class BlcPeriodSelectComponent implements OnInit {
 
 	constructor(private _dateService: DateService) {
 		this.periodChange = new EventEmitter();
-		this.periodSelect = 'day';
 		this.fromDate = new Date();
 		this.toDate = new Date();
+    this.periodSelect = 'day';
 	}
 
 	ngOnInit() {

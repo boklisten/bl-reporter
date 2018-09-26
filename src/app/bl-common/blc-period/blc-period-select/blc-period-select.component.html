@@ -2,7 +2,8 @@
 	<div class="col-12">
         <div 
           class="btn-group btn-group-toggle" 
-          ngbRadioGroup [(ngModel)]="periodSelect" 
+          ngbRadioGroup 
+          [(ngModel)]="periodSelect"
           (ngModelChange)="selectPeriod($event)">
             <label ngbButtonLabel class="btn-outline-secondary">
                 <input 
