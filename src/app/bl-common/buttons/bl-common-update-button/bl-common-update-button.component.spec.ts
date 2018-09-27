@@ -1,6 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BlCommonUpdateButtonComponent } from './bl-common-update-button.component';
+import { Component, Input } from '@angular/core';
+
+@Component({selector: 'fa-icon', template: ''})
+class FaIconStub {
+  @Input() icon;
+  @Input() spin;
+}
+
 
 describe('BlCommonUpdateButtonComponent', () => {
   let component: BlCommonUpdateButtonComponent;
@@ -8,7 +16,10 @@ describe('BlCommonUpdateButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlCommonUpdateButtonComponent ]
+      declarations: [ 
+        BlCommonUpdateButtonComponent,
+        FaIconStub
+      ]
     })
     .compileComponents();
   }));

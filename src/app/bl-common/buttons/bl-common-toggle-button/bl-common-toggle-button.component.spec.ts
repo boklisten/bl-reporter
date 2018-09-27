@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BlCommonToggleButtonComponent } from './bl-common-toggle-button.component';
+import { Component, Input } from '@angular/core';
+
+@Component({selector: 'fa-icon', template: ''})
+class FaIconStub {
+  @Input() icon;
+}
 
 describe('BlCommonToggleButtonComponent', () => {
   let component: BlCommonToggleButtonComponent;
@@ -8,7 +14,10 @@ describe('BlCommonToggleButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlCommonToggleButtonComponent ]
+      declarations: [
+        BlCommonToggleButtonComponent,
+        FaIconStub
+      ]
     })
     .compileComponents();
   }));

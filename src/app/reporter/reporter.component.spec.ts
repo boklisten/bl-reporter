@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 
 import { ReporterComponent } from './reporter.component';
+
+@Component({selector: 'app-order-download', template: ''})
+class OrderDownloadStubComponent {
+
+}
 
 describe('ReporterComponent', () => {
   let component: ReporterComponent;
@@ -8,7 +14,10 @@ describe('ReporterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReporterComponent ]
+      declarations: [ 
+        ReporterComponent,
+        OrderDownloadStubComponent
+      ]
     })
     .compileComponents();
   }));

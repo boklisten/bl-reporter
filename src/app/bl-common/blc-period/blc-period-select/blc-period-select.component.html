@@ -1,8 +1,9 @@
 <div class="row">
 	<div class="col-12">
-        <div 
+        <input
           class="btn-group btn-group-toggle" 
           ngbRadioGroup 
+          name="period"
           [(ngModel)]="periodSelect"
           (ngModelChange)="selectPeriod($event)">
             <label ngbButtonLabel class="btn-outline-secondary">
@@ -45,7 +46,6 @@
                   i18n="@@blcPeriodSelectCustom"> 
                 Custom
             </label>
-        </div>
 	</div>
 </div>
 
