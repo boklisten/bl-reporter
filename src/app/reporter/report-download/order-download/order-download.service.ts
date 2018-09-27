@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OrderService, UserDetailService} from '@wizardcoder/bl-connect';
-import { Order } from '@wizardcoder/bl-model';
+import { Order, OrderItem } from '@wizardcoder/bl-model';
 import { ExcelService} from '../../excel/excel.service';
 import { DatabaseReportOrderFilter } from './databaseReportOrderFilter';
 
@@ -17,12 +17,41 @@ export class OrderDownloadService {
 	            private _userDetailService: UserDetailService,
 	            private _databaseExcelService: ExcelService) {
 		this._dateFormat = 'DDMMYYYYHHmm';
-	}
+  }
+
+  public async getOrdersByFilter(filter: DatabaseReportOrderFilter): Promise<Order[]> {
+		const query = this.buildQuerySting(filter);
+		return this._orderService.getAll(query);
+  }
+
+  public filterOrdersToOrderItems(filter: DatabaseReportOrderFilter, orders: Order[]): OrderItem[] {
+    const filteredOrderItems: OrderItem[] = [];
+
+    for (const order of orders) {
+      for (const orderItem of order.orderItems) {
+        /*
+        if (filter.orderItemNotDelivered) {
+          if (typeof orderItem.movedToOrder !== 'undefined') {
+            continue;
+          }
+        }
+        if (typeof orderItem.info !== 'undefined') {
+          if (typeof orderItem.info.customerItem !== 'undefined')  {
+            continue;
+          }
+        }
+         */
+
+        filteredOrderItems.push(orderItem);
+      }
+    }
+
+		return filteredOrderItems;
+  }
 
 	public async printFilteredOrdersToFile(filter: DatabaseReportOrderFilter): Promise<boolean> {
 		try {
 			const orders = await this.getOrdersByFilter(filter);
-      console.log('the orders', orders);
 			await this.printOrdersToExcel(orders, filter);
 
 			return true;
@@ -31,12 +60,7 @@ export class OrderDownloadService {
 		}
 	}
 
-	public getOrdersByFilter(filter: DatabaseReportOrderFilter): Promise<Order[]> {
-		const query = this.buildQuerySting(filter);
-		return this._orderService.getAll(query);
-	}
-
-	private async printOrdersToExcel(orders: Order[], filter: DatabaseReportOrderFilter): Promise<boolean> {
+  private async printOrdersToExcel(orders: Order[], filter: DatabaseReportOrderFilter): Promise<boolean> {
 		let allExcelObjects: any[] = [];
 
 		for (const order of orders) {
