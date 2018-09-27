@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 
 import { ReporterComponent } from './reporter.component';
 
-@Component({selector: 'app-order-download', template: ''})
-class OrderDownloadStubComponent {
+@Component({selector: 'app-report-download', template: ''})
+class ReportDownloadStubComponent {
 
 }
 
@@ -16,7 +16,7 @@ describe('ReporterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ 
         ReporterComponent,
-        OrderDownloadStubComponent
+        ReportDownloadStubComponent
       ]
     })
     .compileComponents();

@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportDownloadComponent } from './report-download.component';
+import { Component } from '@angular/core';
+
+@Component({selector: 'app-order-download', template: ''})
+class OrderDownloadStubComponent {
+
+}
 
 describe('ReportDownloadComponent', () => {
   let component: ReportDownloadComponent;
@@ -8,7 +14,10 @@ describe('ReportDownloadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportDownloadComponent ]
+      declarations: [ 
+        ReportDownloadComponent,
+        OrderDownloadStubComponent
+      ]
     })
     .compileComponents();
   }));

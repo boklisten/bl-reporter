@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BlcPeriodSelectComponent } from './blc-period-select.component';
 import { Injectable, EventEmitter, Component, Input, Output } from '@angular/core';
 import { DateService } from '../../date/date.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
+import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 class DateStubService {
@@ -33,7 +34,8 @@ describe('BlcPeriodSelectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule
+        FormsModule,
+        NgbButtonsModule
       ],
       declarations: [ 
         BlcPeriodSelectComponent,
