@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {read, write, utils, WorkBook, writeFile} from 'xlsx';
+import moment from 'moment-es6';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +16,15 @@ export class ExcelService {
 
 		for (const obj of objects) {
 			flattenObjects.push(this.flattenObj(obj));
-		}
-
-		const sheet = utils.json_to_sheet(flattenObjects);
-		const workBook: WorkBook = utils.book_new();
-
-		const fileNameWithDate = this.generateFileName(fileName);
-
-		utils.book_append_sheet(workBook, sheet, fileNameWithDate);
-
-		writeFile(workBook, fileNameWithDate);
+    }
+    
+    const sheet = utils.json_to_sheet(flattenObjects);
+    const workBook: WorkBook = utils.book_new();
+    const fileNameWithDate = this.generateFileName(fileName);
+    utils.book_append_sheet(workBook, sheet, fileNameWithDate);
+   
+    writeFile(workBook, fileNameWithDate);
+    
 	}
 
 	public excelFileToObjects(excelBinaryFile: any): any[] {
@@ -40,7 +40,7 @@ export class ExcelService {
   }
 
   private generateFileName(name: string): string {
-   const time = new Date().toTimeString(); 
+   const time = moment().format('DDMMYYYYHHmm'); 
    return name + '_' + time + '.xlsx';
   }
 

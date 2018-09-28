@@ -80,6 +80,7 @@ export class DateService {
 	}
 
 	public getAllTimePeriod(): {fromDate: Date, toDate: Date} {
+    let toDate = this.getCurrentDate().add(2, 'day');
 		return {
       fromDate: moment()
       .year(2000)
@@ -90,7 +91,7 @@ export class DateService {
       .second(0)
       .millisecond(0)
       .toDate(),
-			toDate: this.getCurrentDate().toDate()
+			toDate: toDate.toDate()
 		};
 	}
 

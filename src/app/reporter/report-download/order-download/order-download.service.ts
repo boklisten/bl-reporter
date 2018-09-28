@@ -24,35 +24,70 @@ export class OrderDownloadService {
 		return this._orderService.getAll(query);
   }
 
-  public filterOrdersToOrderItems(filter: DatabaseReportOrderFilter, orders: Order[]): OrderItem[] {
+  public filterOrders(filter: DatabaseReportOrderFilter, orders: Order[]): Order[] {
+    let filteredOrders: Order[] = [];
+    for (let order of orders) {
+      let filteredOrderItems = this.filterOrderItems(filter, order);
+
+      if (filteredOrderItems.length > 0) {
+        order.orderItems = filteredOrderItems;
+        filteredOrders.push(order);
+      }
+    }
+
+    return filteredOrders;
+  }
+
+  public filterOrderItems(filter: DatabaseReportOrderFilter, order: Order): OrderItem[] {
     const filteredOrderItems: OrderItem[] = [];
 
-    for (const order of orders) {
-      for (const orderItem of order.orderItems) {
-        /*
-        if (filter.orderItemNotDelivered) {
-          if (typeof orderItem.movedToOrder !== 'undefined') {
-            continue;
-          }
-        }
-        if (typeof orderItem.info !== 'undefined') {
-          if (typeof orderItem.info.customerItem !== 'undefined')  {
-            continue;
-          }
-        }
-         */
+    
 
-        filteredOrderItems.push(orderItem);
+    for (const orderItem of order.orderItems) {
+
+      if (filter.orderItemNotHandedOut) {
+
+        if (typeof orderItem.movedToOrder !== 'undefined') {
+          continue;
+        }
+
+        if (typeof orderItem.customerItem !== 'undefined') {
+          
+          continue;
+        }
+
+        if (typeof orderItem.handout !== 'undefined' && orderItem.handout) {
+          continue;
+        }
+
+        if (typeof orderItem.delivered !== 'undefined' && orderItem.delivered) {
+          continue;
+        }
       }
+
+      if (typeof filter.includedOrderItemTypes !== 'undefined' && filter.includedOrderItemTypes.length > 0) {
+        if (filter.includedOrderItemTypes.indexOf(orderItem.type) <= -1) {
+          continue;
+        }
+      }
+
+      filteredOrderItems.push(orderItem);
     }
 
 		return filteredOrderItems;
   }
 
 	public async printFilteredOrdersToFile(filter: DatabaseReportOrderFilter): Promise<boolean> {
-		try {
+    try {
+      
 			const orders = await this.getOrdersByFilter(filter);
-			await this.printOrdersToExcel(orders, filter);
+      const filteredOrders = this.filterOrders(filter, orders);
+
+      if (filteredOrders.length <= 0) {
+        throw new Error('OrderDownloadService: no orders found matching the filter');
+      }
+
+			await this.printOrdersToExcel(filter, filteredOrders);
 
 			return true;
 		} catch (e) {
@@ -60,14 +95,15 @@ export class OrderDownloadService {
 		}
 	}
 
-  private async printOrdersToExcel(orders: Order[], filter: DatabaseReportOrderFilter): Promise<boolean> {
+  private async printOrdersToExcel(filter: DatabaseReportOrderFilter, orders: Order[]): Promise<boolean> {
 		let allExcelObjects: any[] = [];
 
 		for (const order of orders) {
 			const excelObjects = await this.orderToExcelObjects(order, filter);
 			allExcelObjects = allExcelObjects.concat(excelObjects);
     }
-		this._databaseExcelService.objectsToExcelFile(allExcelObjects, 'orders.xlxs');
+
+		this._databaseExcelService.objectsToExcelFile(allExcelObjects, 'orders');
 
 		return true;
 	}
@@ -76,19 +112,6 @@ export class OrderDownloadService {
 		const excelObjects: any[] = [];
 
 		for (const orderItem of order.orderItems) {
-      /*
-			if (filter.orderItemNotDelivered) {
-				if (typeof orderItem.movedToOrder !== 'undefined') {
-					continue;
-        }
-      }
-			if (typeof orderItem.info !== 'undefined') {
-        if (typeof orderItem.info.customerItem !== 'undefined')  {
-          continue;
-        }
-      }
-       */
-
 			excelObjects.push({
 				orderId: order.id,
 				branchId: order.branch,
@@ -129,9 +152,10 @@ export class OrderDownloadService {
 			query += '&byCustomer=' + filter.byCustomer;
 		}
 
-		if (filter.orderItemNotDelivered) {
-			query += '&orderItems.handout=' + !filter.orderItemNotDelivered;
-		}
+		if (typeof filter.orderItemNotHandedOut == 'undefined' && filter.orderItemNotHandedOut == true) {
+      //query += '&orderItems.handout=false';
+      //query += '&orderItems.delivered=false';
+    }
 
 		return query;
 	}

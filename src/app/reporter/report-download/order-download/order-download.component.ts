@@ -47,21 +47,24 @@ export class OrderDownloadComponent implements OnInit {
 	onGetOrders() {
 		this.noOrdersFound = false;
     let branchId = '';
+
 		const filter: DatabaseReportOrderFilter = {
       branchId: branchId,
-			orderItemNotDelivered: this.notDelivered,
+			orderItemNotHandedOut: this.notDelivered,
 			fromDate: this.fromDate,
 			byCustomer: this.byCustomer,
-			toDate: this.toDate
-		};
+      toDate: this.toDate,
+      includedOrderItemTypes: ['rent', 'buy']
+    };
 
 		this.wait = true;
+
     this._databaseReportOrderService.printFilteredOrdersToFile(filter)
       .then(() => {
 			  this.wait = false;
-		}).catch((err) => {
-			this.noOrdersFound = true;
-			this.wait = false;
+      }).catch((err) => {
+			  this.noOrdersFound = true;
+			  this.wait = false;
 		});
 	}
 }

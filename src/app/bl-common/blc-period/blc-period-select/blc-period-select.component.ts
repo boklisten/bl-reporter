@@ -49,7 +49,7 @@ export class BlcPeriodSelectComponent implements OnInit {
 			const allTimePeriod = this._dateService.getAllTimePeriod();
 			this.fromDate = allTimePeriod.fromDate;
 			this.toDate = allTimePeriod.toDate;
-		}
+    }
 
 		this.periodChange.emit({fromDate: this.fromDate, toDate: this.toDate});
 	}

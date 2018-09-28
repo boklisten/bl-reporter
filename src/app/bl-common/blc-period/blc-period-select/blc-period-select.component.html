@@ -6,6 +6,7 @@
           name="periodSelecter"
           ngbRadioGroup 
           [(ngModel)]="periodSelect"
+          (ngModelChange)="selectPeriod($event)"
           >
             <label ngbButtonLabel class="btn-outline-secondary">
                 <input 
