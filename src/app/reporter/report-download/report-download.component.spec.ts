@@ -8,6 +8,11 @@ class OrderDownloadStubComponent {
 
 }
 
+@Component({selector: 'app-payment-download', template: ''})
+class PaymentDownloadStubComponent {
+
+}
+
 describe('ReportDownloadComponent', () => {
   let component: ReportDownloadComponent;
   let fixture: ComponentFixture<ReportDownloadComponent>;
@@ -16,7 +21,8 @@ describe('ReportDownloadComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ 
         ReportDownloadComponent,
-        OrderDownloadStubComponent
+        OrderDownloadStubComponent,
+        PaymentDownloadStubComponent
       ]
     })
     .compileComponents();

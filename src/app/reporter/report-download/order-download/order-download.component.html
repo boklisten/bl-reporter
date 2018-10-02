@@ -5,12 +5,12 @@
 				Orders
 			</div>
 			<div class="card-body">
-                <div class="row mb-2" *ngIf="noOrdersFound">
-                    <div class="col-12">
-                        <div class="alert alert-secondary" i18n="@@databaseReportOrderNoOrdersFound">
-                            No orders found
-                        </div>
-                    </div>
+        <div class="row mb-2" *ngIf="noOrdersFound">
+            <div class="col-12">
+                <div class="alert alert-secondary" i18n="@@databaseReportOrderNoOrdersFound">
+                    No orders found
+                </div>
+            </div>
 				</div>
 
 				<div class="row mb-2" *ngIf="wait">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-				<div class="row justify-content-between">
+				<div class="row justify-content-between" *ngIf="currentBranchId">
                     <div class="col-auto">
                         <fa-icon [icon]="'location-arrow'"></fa-icon>
                     </div>

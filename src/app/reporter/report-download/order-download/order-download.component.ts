@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ExcelService } from '../../excel/excel.service';
 import { OrderDownloadService } from './order-download.service';
 import { DatabaseReportOrderFilter } from './databaseReportOrderFilter'
@@ -9,6 +9,7 @@ import { DatabaseReportOrderFilter } from './databaseReportOrderFilter'
   styleUrls: ['./order-download.component.scss']
 })
 export class OrderDownloadComponent implements OnInit {
+  @Input() currentBranchId: string;
 	public notDelivered: boolean;
 	public fromDate: Date;
 	public toDate: Date;
@@ -46,7 +47,12 @@ export class OrderDownloadComponent implements OnInit {
 
 	onGetOrders() {
 		this.noOrdersFound = false;
+
     let branchId = '';
+
+    if (this.currentBranch && (typeof this.currentBranchId !== 'undefined')) {
+      branchId = this.currentBranchId;
+    }
 
 		const filter: DatabaseReportOrderFilter = {
       branchId: branchId,

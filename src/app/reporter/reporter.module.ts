@@ -7,6 +7,7 @@ import { FormsModule} from '@angular/forms';
 import { BlCommonModule } from '../bl-common/bl-common.module';
 import { BlConnectModule } from '@wizardcoder/bl-connect';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PaymentDownloadComponent } from './report-download/payment-download/payment-download.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [
     ReportDownloadComponent, 
     OrderDownloadComponent, 
-    ReporterComponent
+    ReporterComponent, PaymentDownloadComponent
   ],
   exports: [
     ReporterComponent
