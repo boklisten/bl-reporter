@@ -19,7 +19,7 @@ export class PaymentDownloadComponent implements OnInit {
       branchIds: [],
       fromDate: new Date(),
       toDate: new Date(),
-      methods: ['card']
+      methods: []
     }
 
     this.currentBranch = true;
