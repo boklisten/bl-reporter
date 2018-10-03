@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportDownloadComponent } from './report-download/report-download.component';
-import { OrderDownloadComponent } from './report-download/order-download/order-download.component';
 import { ReporterComponent } from './reporter.component';
 import { FormsModule} from '@angular/forms';
 import { BlCommonModule } from '../bl-common/bl-common.module';
 import { BlConnectModule } from '@wizardcoder/bl-connect';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PaymentDownloadComponent } from './report-download/payment-download/payment-download.component';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import { faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel } from '@fortawesome/free-solid-svg-icons';
-import { CustomerItemDownloadComponent } from './report-download/customer-item-download/customer-item-download.component';
+import { ReportDownloadModule } from './report-download/report-download.module';
 
 library.add(faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel);
 
@@ -20,12 +18,12 @@ library.add(faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel
     FormsModule,
     BlCommonModule,
     BlConnectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReportDownloadModule
   ],
   declarations: [
     ReportDownloadComponent, 
-    OrderDownloadComponent, 
-    ReporterComponent, PaymentDownloadComponent, CustomerItemDownloadComponent
+    ReporterComponent 
   ],
   exports: [
     ReporterComponent
