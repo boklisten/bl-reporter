@@ -8,6 +8,10 @@ import { BlCommonModule } from '../bl-common/bl-common.module';
 import { BlConnectModule } from '@wizardcoder/bl-connect';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaymentDownloadComponent } from './report-download/payment-download/payment-download.component';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import { faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel);
 
 @NgModule({
   imports: [
