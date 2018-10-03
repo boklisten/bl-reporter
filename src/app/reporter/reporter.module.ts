@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaymentDownloadComponent } from './report-download/payment-download/payment-download.component';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import { faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import { CustomerItemDownloadComponent } from './report-download/customer-item-download/customer-item-download.component';
 
 library.add(faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel);
 
@@ -24,7 +25,7 @@ library.add(faLocationArrow, faToggleOn, faToggleOff, faCircleNotch, faFileExcel
   declarations: [
     ReportDownloadComponent, 
     OrderDownloadComponent, 
-    ReporterComponent, PaymentDownloadComponent
+    ReporterComponent, PaymentDownloadComponent, CustomerItemDownloadComponent
   ],
   exports: [
     ReporterComponent

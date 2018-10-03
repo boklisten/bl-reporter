@@ -93,7 +93,17 @@ export class DateService {
       .toDate(),
 			toDate: toDate.toDate()
 		};
-	}
+  }
+
+  public getPeriodQuery(fromDate: Date, toDate: Date): string {
+    let query = '';
+    const dateFormat = 'DDMMYYYYHHmm'
+
+	  query += '&creationTime=>' + moment(fromDate).format(dateFormat); 
+		query += '&creationTime=<' + moment(toDate).format(dateFormat);
+
+    return query;
+  }
 
 	public isCustomerItemReturnValid(deadline: Date): boolean {
 		return moment().isSameOrBefore(moment(deadline));

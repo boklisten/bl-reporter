@@ -11,10 +11,13 @@ import { ExcelService } from '../../excel/excel.service';
 export class PaymentDownloadComponent implements OnInit {
   public filter: PaymentFilter;
   public currentBranch: boolean;
+  public noPaymentsFound: boolean;
+  public wait: boolean;
   @Input() currentBranchId: string;
 
   constructor(private paymentDownloadService: PaymentDownloadService,
               private excelService: ExcelService) {
+    
     this.filter = {
       branchIds: [],
       fromDate: new Date(),
@@ -22,6 +25,7 @@ export class PaymentDownloadComponent implements OnInit {
       methods: []
     }
 
+    this.noPaymentsFound = false;
     this.currentBranch = true;
   }
 
@@ -34,14 +38,19 @@ export class PaymentDownloadComponent implements OnInit {
   }
 
   public onGetPayments() {
+    this.noPaymentsFound = false;
+    this.wait = true;
+    
     if (this.currentBranch && (typeof this.currentBranchId !== 'undefined')) {
       this.filter.branchIds = [this.currentBranchId];
     }
 
     this.paymentDownloadService.getPaymentsByFilter(this.filter).then((payments) => {
       this.paymentDownloadService.printPaymentsToExcel(payments, 'payments');
+      this.wait = false;
     }).catch(() => {
-      console.log('could not get payments');
+      this.noPaymentsFound = true;
+      this.wait = false;
     }) 
   }
 }

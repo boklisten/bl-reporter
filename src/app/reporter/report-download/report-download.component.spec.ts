@@ -13,6 +13,11 @@ class PaymentDownloadStubComponent {
 
 }
 
+@Component({selector: 'app-customer-item-download', template: ''})
+class CustomerItemDownloadStubComponent {
+
+}
+
 describe('ReportDownloadComponent', () => {
   let component: ReportDownloadComponent;
   let fixture: ComponentFixture<ReportDownloadComponent>;
@@ -22,7 +27,8 @@ describe('ReportDownloadComponent', () => {
       declarations: [ 
         ReportDownloadComponent,
         OrderDownloadStubComponent,
-        PaymentDownloadStubComponent
+        PaymentDownloadStubComponent,
+        CustomerItemDownloadStubComponent
       ]
     })
     .compileComponents();
