@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pkg": "ng-packagr -p package.json",
-    "pkg:pub": "npm run pgk && npm publish"
+    "pkg:pub": "npm run pkg && npm publish"
   },
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "ngPackage": {
@@ -21,7 +21,6 @@
       "@wizardcoder/bl-model"
     ]
   },
-  "private": true,
   "peerDependencies": {
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
