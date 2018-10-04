@@ -1,12 +1,12 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment-es6';
 
 @Pipe({
 	name: 'blDate'
 })
 export class BlDatePipe implements PipeTransform {
 
-	transform(dateString: string, format?: 'time' | 'timestamp' | 'day'): any {
+	transform(dateString: Date, format?: 'time' | 'timestamp' | 'day'): any {
 		const date = new Date(dateString);
 
 		switch (format) {

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment-es6';
 
 @Component({
 	selector: 'app-blc-edit-date-value',
