@@ -13,6 +13,7 @@ import { OrderDownloadComponent } from './order-download/order-download.componen
 import { CustomerItemDownloadService } from './customer-item-download/customer-item-download.service';
 import { CustomerItemDownloadComponent } from './customer-item-download/customer-item-download.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DateService } from '../../bl-common/date/date.service';
 
 
 
@@ -26,7 +27,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ExcelService,
     PaymentDownloadService,
     OrderDownloadService,
-    CustomerItemDownloadService
+    CustomerItemDownloadService,
+    DateService
   ],
   declarations: [
     PaymentDownloadComponent,
