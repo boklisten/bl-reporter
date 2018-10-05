@@ -38,14 +38,14 @@ export class CustomerItemDownloadService {
 
   private customerItemToExcelObj(customerItem: CustomerItem): any {
     return {
-      id: customerItem.id,
-      item: customerItem.item,
-      customer: customerItem.customer,
-      deadline: customerItem.deadline,
-      returned: customerItem.returned,
-      buyout: customerItem.buyout,
-      customerName: customerItem.customerInfo.name,
-      customerPhone: customerItem.customerInfo.phone
+      id: (customerItem.id) ? customerItem.id : null,
+      item: customerItem.item ? customerItem.item : null,
+      customer: customerItem.customer ? customerItem.customer : null,
+      deadline: customerItem.deadline ? customerItem.deadline : null,
+      returned: customerItem.returned ? customerItem.returned : null,
+      buyout: customerItem.buyout ? customerItem.buyout : null,
+      customerName: (customerItem['customerInfo'] && customerItem['customerInfo'].name) ? customerItem['customerInfo'].name : null,
+      customerPhone: (customerItem['customerInfo'] && customerItem['customerInfo'].phone) ? customerItem['customerInfo'].phone : null,
     }
   }
 
