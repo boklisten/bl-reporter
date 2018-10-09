@@ -40,12 +40,30 @@ export class CustomerItemDownloadService {
     return {
       id: (customerItem.id) ? customerItem.id : null,
       item: customerItem.item ? customerItem.item : null,
-      customer: customerItem.customer ? customerItem.customer : null,
       deadline: customerItem.deadline ? customerItem.deadline : null,
-      returned: customerItem.returned ? customerItem.returned : null,
-      buyout: customerItem.buyout ? customerItem.buyout : null,
+
+      customerId: customerItem.customer ? customerItem.customer : null,
       customerName: (customerItem['customerInfo'] && customerItem['customerInfo'].name) ? customerItem['customerInfo'].name : null,
       customerPhone: (customerItem['customerInfo'] && customerItem['customerInfo'].phone) ? customerItem['customerInfo'].phone : null,
+
+      handoutBranch: (customerItem.handoutInfo && customerItem.handoutInfo.handoutBy === 'branch') ? customerItem.handoutInfo.handoutById : null,
+      handoutEmployee: (customerItem.handoutInfo) ? customerItem.handoutInfo.handoutEmployee : null,
+      handoutTime: (customerItem.handoutInfo) ? customerItem.handoutInfo.time : null,
+
+      returned: customerItem.returned ? customerItem.returned : null,
+      returnedToBranch: (customerItem.returnInfo && customerItem.returnInfo.returnedTo === 'branch') ? customerItem.returnInfo.returnedToId : null,
+      returnedByEmployee: customerItem.returnInfo ? customerItem.returnInfo.returnEmployee : null,
+
+      buyout: customerItem.buyout ? customerItem.buyout : null,
+      buyoutOrderId: customerItem.buyoutInfo ? customerItem.buyoutInfo.order : null,
+
+      pivot: 1 // for excel use
+    }
+  }
+
+  private extractHandoutId(customerItem: CustomerItem) {
+    if (typeof customerItem.handout !== 'undefined') {
+
     }
   }
 
