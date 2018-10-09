@@ -114,15 +114,17 @@ export class OrderDownloadService {
 		for (const orderItem of order.orderItems) {
 			excelObjects.push({
 				orderId: order.id,
-				branchId: order.branch,
+        branchId: order.branch,
 				orderMadeBy: (order.byCustomer) ? 'customer' : 'branch',
 				customerId: order.customer,
 				title: orderItem.title,
 				amount: orderItem.amount,
 				taxAmount: orderItem.taxAmount,
+        deliveryId: order.delivery,
 				type: orderItem.type,
 				movedToOrder: orderItem.movedToOrder,
-				creationTime: order.creationTime
+        creationTime: order.creationTime,
+        pivot: 1 // used for excel pivot table
 			});
 		}
 		return excelObjects;

@@ -43,15 +43,16 @@ export class PaymentDownloadService {
   private paymentToExcelObj(payment: Payment): any {
     return {
       id: payment.id,
-      order: payment.order,
+      orderId: payment.order,
       method: payment.method,
       amount: payment.amount,
       taxAmount: payment.taxAmount,
       customer: payment.customer,
-      branch: payment.branch,
+      branchId: payment.branch,
       paymentId: (payment.info && payment.info['paymentId']) ? payment.info['paymentId'] : '',
       cofirmed: payment.confirmed,
-      creationTime: payment.creationTime
+      creationTime: payment.creationTime,
+      pivot: 1 // used by excel to make pivot tables
     }
   }
 
