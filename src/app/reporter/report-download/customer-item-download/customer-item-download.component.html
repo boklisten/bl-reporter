@@ -23,6 +23,35 @@
           </div>
         </div>
 
+        <div class="row justify-content-between">
+          <div class="col-auto" i18n="@@customerItemDownloadReturned">
+            Returned
+          </div>
+          <div class="col-auto">
+              <app-bl-common-toggle-button [(value)]="returned"></app-bl-common-toggle-button>
+          </div>
+        </div>
+        
+        <div class="row justify-content-between">
+          <div class="col-auto" i18n="@@customerItemDownloadNotReturned">
+            Not returned
+          </div>
+          <div class="col-auto">
+              <app-bl-common-toggle-button [(value)]="notReturned"></app-bl-common-toggle-button>
+          </div>
+        </div>
+
+        <div class="row justify-content-between">
+          <div class="col-auto" i18n="@@customerItemDownloadBuyout">
+            Buyout 
+          </div>
+          <div class="col-auto">
+              <app-bl-common-toggle-button [(value)]="buyout"></app-bl-common-toggle-button>
+          </div>
+        </div>
+
+
+
         <div class="row mt-2 justify-content-center">
           <div class="col-auto">
             <app-blc-period-select 

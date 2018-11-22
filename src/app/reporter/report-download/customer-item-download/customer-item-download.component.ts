@@ -13,11 +13,18 @@ export class CustomerItemDownloadComponent implements OnInit {
   public currentBranch: boolean;
   public customerItemFilter: CustomerItemFilter;
   public wait: boolean;
+  public returned: boolean;
+  public notReturned: boolean;
   public noCustomerItemsFound: boolean;
+  public buyout: boolean;
 
   constructor(private customerItemDownloadService: CustomerItemDownloadService) {
     this.wait = false;
     this.noCustomerItemsFound = false;
+    this.returned = false;
+    this.notReturned = true;
+    this.buyout = false;
+
     this.customerItemFilter = {
       fromDate: new Date(),
       toDate: new Date()
@@ -36,6 +43,20 @@ export class CustomerItemDownloadComponent implements OnInit {
   public onPrintCustomerItems() {
     if (this.currentBranch && (typeof this.currentBranchId !== 'undefined')) {
       this.customerItemFilter['branchIds'] = [this.currentBranchId];
+    }
+
+    if (!this.returned && this.notReturned) {
+      this.customerItemFilter['returned'] = false;
+    } else if (this.returned && !this.notReturned) {
+      this.customerItemFilter['returned'] = true;
+    } else {
+      this.customerItemFilter['returned'] = undefined;
+    }
+
+    if (this.buyout) {
+      this.customerItemFilter['buyout'] = true;
+    } else {
+      this.customerItemFilter['buyout'] = undefined;
     }
 
     this.wait = true;

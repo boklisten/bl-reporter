@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BlCommonToggleButtonComponent } from './buttons/bl-common-toggle-button/bl-common-toggle-button.component';
 import { DateService } from './date/date.service';
 import { NgbButtonsModule} from '@ng-bootstrap/ng-bootstrap';
+import { BlcDeadlineComponent } from './blc-deadline/blc-deadline.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { NgbButtonsModule} from '@ng-bootstrap/ng-bootstrap';
     BlcEditDateValueComponent,
     BlDatePipe,
     BlCommonUpdateButtonComponent,
-    BlCommonToggleButtonComponent
+    BlCommonToggleButtonComponent,
+    BlcDeadlineComponent
   ],
   exports: [
     BlcPeriodSelectComponent,
