@@ -16,7 +16,23 @@ export class CustomerItemDownloadService {
   }
 
   public async getCustomerItemsByFilter(filter: CustomerItemFilter): Promise<CustomerItem[]> {
-    const customerItems = await this.customerItemService.get(this.createQueryByFilter(filter));
+    let limit = 100;
+    let skip = 0;
+    let customerItems = [];
+    let returnVals = [];
+
+    while (returnVals != null) {
+      try {
+        let attachQuery = (skip !== 0) ? `&limit=${limit}&skip=${skip}` :  `&limit=${limit}`;
+        returnVals = await this.customerItemService.get(this.createQueryByFilter(filter) + attachQuery);
+        customerItems = customerItems.concat(returnVals);
+        returnVals = [];
+        skip += limit;
+      } catch (e) {
+        returnVals = null;
+      }
+    }
+
     return customerItems;
   }
 
