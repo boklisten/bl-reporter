@@ -154,7 +154,7 @@ export class CustomerItemDownloadService {
     let query = '';
     
     for (let branchId of branchIds) {
-      query += `branch=${branchId}`;
+      query += `&handoutInfo.handoutById=${branchId}`;
     }
 
     return query;
