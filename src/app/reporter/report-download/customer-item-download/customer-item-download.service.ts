@@ -39,11 +39,11 @@ export class CustomerItemDownloadService {
   private customerItemToExcelObj(customerItem: CustomerItem): any {
     let excelObj = {
       id: (customerItem.id) ? customerItem.id : null,
-      deadline: customerItem.deadline ? customerItem.deadline : null,
+      deadline: (customerItem.deadline) ? this.dateService.convertToExcelDate(customerItem.deadline) : null,
       
       handoutBranch: (customerItem.handoutInfo && customerItem.handoutInfo.handoutBy === 'branch') ? customerItem.handoutInfo.handoutById : null,
       handoutEmployee: (customerItem.handoutInfo) ? customerItem.handoutInfo.handoutEmployee : null,
-      handoutTime: (customerItem.handoutInfo) ? customerItem.handoutInfo.time : null,
+      handoutTime: (customerItem.handoutInfo) ? this.dateService.convertToExcelDate(customerItem.handoutInfo.time) : null,
 
       returned: customerItem.returned ? customerItem.returned : null,
       returnedToBranch: (customerItem.returnInfo && customerItem.returnInfo.returnedTo === 'branch') ? customerItem.returnInfo.returnedToId : null,

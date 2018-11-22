@@ -115,5 +115,10 @@ export class DateService {
 
 	public isOrderItemCancelValid(orderDate: Date): boolean {
 		return moment().isSameOrBefore(moment(orderDate).add(2, 'week'));
-	}
+  }
+
+  public convertToExcelDate(date) {
+    const excelDateFormat = "DD/MM/YYYY HH:mm";
+    return moment(date).format(excelDateFormat);
+  }
 }
