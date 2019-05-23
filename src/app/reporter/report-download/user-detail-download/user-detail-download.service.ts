@@ -1,22 +1,33 @@
-import { Injectable } from '@angular/core';
-import { UserDetailService } from '@wizardcoder/bl-connect';
-import { UserDetail } from '@wizardcoder/bl-model';
-import { ExcelService } from '../../excel/excel.service';
+import { Injectable } from "@angular/core";
+import { UserDetailService } from "@wizardcoder/bl-connect";
+import { UserDetail } from "@wizardcoder/bl-model";
+import { ExcelService } from "../../excel/excel.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserDetailDownloadService {
+  constructor(
+    private userDetailService: UserDetailService,
+    private excelService: ExcelService
+  ) {}
 
-  constructor(private userDetailService: UserDetailService,
-              private excelService: ExcelService) {
-  }
-
-  public async getUserDetails(): Promise<UserDetail[]> {
+  public async getUserDetails(
+    currentBranch: boolean,
+    currentBranchId: string
+  ): Promise<UserDetail[]> {
+    if (currentBranch) {
+      return this.userDetailService.get({
+        query: "?branch=" + currentBranchId
+      });
+    }
     return this.userDetailService.get();
   }
-  
-  public printUserDetailsToExcelFile(userDetails: UserDetail[], fileName: string): boolean {
+
+  public printUserDetailsToExcelFile(
+    userDetails: UserDetail[],
+    fileName: string
+  ): boolean {
     const excelObjs = this.userdetailsToExcelObjs(userDetails);
     this.excelService.objectsToExcelFile(excelObjs, fileName);
     return true;
@@ -43,6 +54,6 @@ export class UserDetailDownloadService {
       branchId: userDetail.branch,
       creationTime: userDetail.creationTime,
       pivot: 1 // used for excel purposes
-    }
+    };
   }
 }

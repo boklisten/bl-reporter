@@ -18,9 +18,9 @@ export class CustomerItemDownloadService {
   public async getCustomerItemsByFilter(
     filter: CustomerItemFilter
   ): Promise<CustomerItem[]> {
-    const customerItems = await this.customerItemService.get(
-      this.createQueryByFilter(filter)
-    );
+    const customerItems = await this.customerItemService.get({
+      query: this.createQueryByFilter(filter)
+    });
     return customerItems;
   }
 

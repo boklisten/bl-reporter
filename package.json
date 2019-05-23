@@ -44,8 +44,8 @@
     "zone.js": "~0.8.26"
   },
   "dependencies": {
-    "@wizardcoder/bl-connect": "^0.10.0",
-    "@wizardcoder/bl-model": "^0.16.2"
+    "@wizardcoder/bl-connect": "^0.12.1",
+    "@wizardcoder/bl-model": "^0.19.17"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
