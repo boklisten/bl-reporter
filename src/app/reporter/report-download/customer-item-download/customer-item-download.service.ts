@@ -125,7 +125,9 @@ export class CustomerItemDownloadService {
       customerObj.email = customer["email"];
       customerObj.phone = customer["phone"];
     } else {
-      customerObj.id = customerItem.customer ? customerItem.customer : null;
+      customerObj.id = customerItem.customer
+        ? (customerItem.customer as string)
+        : null;
       customerObj.name =
         customerItem["customerInfo"] && customerItem["customerInfo"].name
           ? customerItem["customerInfo"].name
