@@ -125,7 +125,7 @@ export class DateService {
   }
 
   public convertToExcelDate(date) {
-    const excelDateFormat = "DD.MM.YYYY HH:mm";
+    const excelDateFormat = "DD.MM.YYYY HH:mm:ss";
     return moment(date).format(excelDateFormat);
   }
 }
