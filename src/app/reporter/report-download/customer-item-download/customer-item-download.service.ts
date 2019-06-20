@@ -1,42 +1,33 @@
-import { Injectable } from '@angular/core';
-import { CustomerItemFilter } from './customerItemFilter';
-import { CustomerItemService } from '@wizardcoder/bl-connect';
-import { CustomerItem } from '@wizardcoder/bl-model';
-import { DateService } from '../../../bl-common/date/date.service';
-import { ExcelService } from '../../excel/excel.service';
+import { Injectable } from "@angular/core";
+import { CustomerItemFilter } from "./customerItemFilter";
+import { CustomerItemService } from "@wizardcoder/bl-connect";
+import { CustomerItem } from "@wizardcoder/bl-model";
+import { DateService } from "../../../bl-common/date/date.service";
+import { ExcelService } from "../../excel/excel.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CustomerItemDownloadService {
+  constructor(
+    private customerItemService: CustomerItemService,
+    private excelService: ExcelService,
+    private dateService: DateService
+  ) {}
 
-  constructor(private customerItemService: CustomerItemService,
-              private excelService: ExcelService, 
-              private dateService: DateService) {
-  }
-
-  public async getCustomerItemsByFilter(filter: CustomerItemFilter): Promise<CustomerItem[]> {
-    let limit = 100;
-    let skip = 0;
-    let customerItems = [];
-    let returnVals = [];
-
-    while (returnVals != null) {
-      try {
-        let attachQuery = (skip !== 0) ? `&limit=${limit}&skip=${skip}` :  `&limit=${limit}`;
-        returnVals = await this.customerItemService.get(this.createQueryByFilter(filter) + attachQuery);
-        customerItems = customerItems.concat(returnVals);
-        returnVals = [];
-        skip += limit;
-      } catch (e) {
-        returnVals = null;
-      }
-    }
-
+  public async getCustomerItemsByFilter(
+    filter: CustomerItemFilter
+  ): Promise<CustomerItem[]> {
+    const customerItems = await this.customerItemService.get({
+      query: this.createQueryByFilter(filter)
+    });
     return customerItems;
   }
 
-  public printCustomerItemsToExcelFile(customerItems: CustomerItem[], fileName: string): boolean {
+  public printCustomerItemsToExcelFile(
+    customerItems: CustomerItem[],
+    fileName: string
+  ): boolean {
     const excelObjs = this.customerItemsToExcelObjs(customerItems);
     this.excelService.objectsToExcelFile(excelObjs, fileName);
     return true;
@@ -54,42 +45,66 @@ export class CustomerItemDownloadService {
 
   private customerItemToExcelObj(customerItem: CustomerItem): any {
     let excelObj = {
-      id: (customerItem.id) ? customerItem.id : null,
-      deadline: (customerItem.deadline) ? this.dateService.convertToExcelDate(customerItem.deadline) : null,
-      
-      handoutBranch: (customerItem.handoutInfo && customerItem.handoutInfo.handoutBy === 'branch') ? customerItem.handoutInfo.handoutById : null,
-      handoutEmployee: (customerItem.handoutInfo) ? customerItem.handoutInfo.handoutEmployee : null,
-      handoutTime: (customerItem.handoutInfo) ? this.dateService.convertToExcelDate(customerItem.handoutInfo.time) : null,
+      id: customerItem.id ? customerItem.id : null,
+      deadline: customerItem.deadline
+        ? this.dateService.convertToExcelDate(customerItem.deadline)
+        : null,
+
+      handoutBranch:
+        customerItem.handoutInfo &&
+        customerItem.handoutInfo.handoutBy === "branch"
+          ? customerItem.handoutInfo.handoutById
+          : null,
+      handoutEmployee: customerItem.handoutInfo
+        ? customerItem.handoutInfo.handoutEmployee
+        : null,
+      handoutTime: customerItem.handoutInfo
+        ? this.dateService.convertToExcelDate(customerItem.handoutInfo.time)
+        : null,
 
       returned: customerItem.returned ? customerItem.returned : null,
-      returnedToBranch: (customerItem.returnInfo && customerItem.returnInfo.returnedTo === 'branch') ? customerItem.returnInfo.returnedToId : null,
-      returnedByEmployee: customerItem.returnInfo ? customerItem.returnInfo.returnEmployee : null,
+      returnedToBranch:
+        customerItem.returnInfo &&
+        customerItem.returnInfo.returnedTo === "branch"
+          ? customerItem.returnInfo.returnedToId
+          : null,
+      returnTime: customerItem.returnInfo
+        ? this.dateService.convertToExcelDate(customerItem.returnInfo.time)
+        : null,
+      returnedByEmployee: customerItem.returnInfo
+        ? customerItem.returnInfo.returnEmployee
+        : null,
 
       buyout: customerItem.buyout ? customerItem.buyout : null,
-      buyoutOrderId: customerItem.buyoutInfo ? customerItem.buyoutInfo.order : null,
-    }
+      buyoutOrderId: customerItem.buyoutInfo
+        ? customerItem.buyoutInfo.order
+        : null
+    };
 
     excelObj = this.attachCustomerToExcelObj(excelObj, customerItem);
     excelObj = this.attachItemToEcelObj(excelObj, customerItem);
-    
-    excelObj['pivot'] = 1;
+
+    excelObj["pivot"] = 1;
 
     return excelObj;
   }
 
-  private attachItemToEcelObj(excelObj: any, customerItem: CustomerItem) { 
-    if (typeof customerItem['item'] !== 'string') {
-      const item = customerItem['item'];
+  private attachItemToEcelObj(excelObj: any, customerItem: CustomerItem) {
+    if (typeof customerItem["item"] !== "string") {
+      const item = customerItem["item"];
 
       let itemObj = {
-        id: item['id'],
-        title: item['title'],
+        id: item["id"],
+        title: item["title"],
         info: {
-          isbn:  (item['info'] && item['info']['isbn']) ? item['info']['isbn'].toString() : '' 
+          isbn:
+            item["info"] && item["info"]["isbn"]
+              ? item["info"]["isbn"].toString()
+              : ""
         }
       };
 
-      excelObj['item'] = itemObj;
+      excelObj["item"] = itemObj;
     }
 
     return excelObj;
@@ -97,37 +112,44 @@ export class CustomerItemDownloadService {
 
   private attachCustomerToExcelObj(excelObj: any, customerItem: CustomerItem) {
     let customerObj = {
-      id: '',
-      name: '',
-      email: '',
-      phone: ''
-    }
+      id: "",
+      name: "",
+      email: "",
+      phone: ""
+    };
 
-    if (typeof customerItem['customer'] !== 'string') {
-      const customer = customerItem['customer'];
-      customerObj.id = customer['id'];
-      customerObj.name = customer['name'];
-      customerObj.email = customer['email'];
-      customerObj.phone = customer['phone'];
+    if (typeof customerItem["customer"] !== "string") {
+      const customer = customerItem["customer"];
+      customerObj.id = customer["id"];
+      customerObj.name = customer["name"];
+      customerObj.email = customer["email"];
+      customerObj.phone = customer["phone"];
     } else {
-      customerObj.id = customerItem.customer ? customerItem.customer : null;
-      customerObj.name = (customerItem['customerInfo'] && customerItem['customerInfo'].name) ? customerItem['customerInfo'].name : null;
-      customerObj.phone = (customerItem['customerInfo'] && customerItem['customerInfo'].phone) ? customerItem['customerInfo'].phone : null;
+      customerObj.id = customerItem.customer
+        ? (customerItem.customer as string)
+        : null;
+      customerObj.name =
+        customerItem["customerInfo"] && customerItem["customerInfo"].name
+          ? customerItem["customerInfo"].name
+          : null;
+      customerObj.phone =
+        customerItem["customerInfo"] && customerItem["customerInfo"].phone
+          ? customerItem["customerInfo"].phone
+          : null;
     }
 
-    excelObj['customer'] = customerObj;
+    excelObj["customer"] = customerObj;
 
     return excelObj;
   }
 
   private extractHandoutId(customerItem: CustomerItem) {
-    if (typeof customerItem.handout !== 'undefined') {
-
+    if (typeof customerItem.handout !== "undefined") {
     }
   }
 
   private createQueryByFilter(filter: CustomerItemFilter): string {
-    let query = '?handout=true&expand=customer&expand=item';
+    let query = "?handout=true&expand=customer&expand=item";
 
     query += this.getBranchIdsQuery(filter.branchIds);
     query += this.getDateQuery(filter.fromDate, filter.toDate);
@@ -138,39 +160,38 @@ export class CustomerItemDownloadService {
   }
 
   private getBuyoutQuery(buyout: boolean): string {
-    if (typeof buyout === 'undefined') {
-      return '';
+    if (typeof buyout === "undefined") {
+      return "";
     }
 
     return `&buyout=${buyout}`;
   }
 
   private getReturnedQuery(returned: boolean): string {
-    if (typeof returned === 'undefined') {
-      return '';
+    if (typeof returned === "undefined") {
+      return "";
     }
 
     return `&returned=${returned}`;
   }
 
   private getDateQuery(fromDate: Date, toDate: Date): string {
-    if (typeof fromDate === 'undefined' || typeof toDate === 'undefined') {
-      return '';
+    if (typeof fromDate === "undefined" || typeof toDate === "undefined") {
+      return "";
     }
 
     return this.dateService.getPeriodQuery(fromDate, toDate);
   }
 
   private getBranchIdsQuery(branchIds: string[]): string {
-    if (typeof branchIds === 'undefined') {
-      return '';
+    if (typeof branchIds === "undefined") {
+      return "";
     }
 
+    let query = "";
 
-    let query = '';
-    
     for (let branchId of branchIds) {
-      query += `branch=${branchId}`;
+      query += `&handoutInfo.handoutById=${branchId}`;
     }
 
     return query;

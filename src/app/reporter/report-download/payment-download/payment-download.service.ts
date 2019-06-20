@@ -1,30 +1,31 @@
-import { Injectable } from '@angular/core';
-import { PaymentService } from '@wizardcoder/bl-connect';
-import { PaymentFilter } from './paymentFilter';
-import { Payment } from '@wizardcoder/bl-model';
-import { ExcelService } from '../../excel/excel.service';
-import moment from 'moment-es6';
+import { Injectable } from "@angular/core";
+import { PaymentService } from "@wizardcoder/bl-connect";
+import { PaymentFilter } from "./paymentFilter";
+import { Payment } from "@wizardcoder/bl-model";
+import { ExcelService } from "../../excel/excel.service";
+import moment from "moment-es6";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PaymentDownloadService {
+  constructor(
+    private paymentService: PaymentService,
+    private excelService: ExcelService
+  ) {}
 
-  constructor(private paymentService: PaymentService, private excelService: ExcelService) {
-  }
-  
   public async getPaymentsByFilter(filter: PaymentFilter): Promise<Payment[]> {
-    try { 
+    try {
       const query = this.createQueryFromFilter(filter);
-      const payments = await this.paymentService.get(query);
-      
+      const payments = await this.paymentService.get({ query: query });
+
       return payments;
     } catch (e) {
-      throw new Error('no payments found by filter: ' + e);
+      throw new Error("no payments found by filter: " + e);
     }
   }
 
- public printPaymentsToExcel(payments: Payment[], fileName: string): boolean {
+  public printPaymentsToExcel(payments: Payment[], fileName: string): boolean {
     const excelObjs = this.paymentsToExcelObjs(payments);
     this.excelService.objectsToExcelFile(excelObjs, fileName);
     return true;
@@ -49,25 +50,28 @@ export class PaymentDownloadService {
       taxAmount: payment.taxAmount,
       customer: payment.customer,
       branchId: payment.branch,
-      paymentId: (payment.info && payment.info['paymentId']) ? payment.info['paymentId'] : '',
+      paymentId:
+        payment.info && payment.info["paymentId"]
+          ? payment.info["paymentId"]
+          : "",
       cofirmed: payment.confirmed,
       creationTime: payment.creationTime,
       pivot: 1 // used by excel to make pivot tables
-    }
+    };
   }
 
   private createQueryFromFilter(filter: PaymentFilter): string {
-    if (!filter) { 
+    if (!filter) {
       return null;
     }
-    
-    let query = '?confirmed=true';
 
-    if (typeof filter.branchIds !== 'undefined') {
+    let query = "?confirmed=true";
+
+    if (typeof filter.branchIds !== "undefined") {
       query += this.addBranchIdQueryParams(filter.branchIds);
     }
 
-    if (typeof filter.methods !== 'undefined') {
+    if (typeof filter.methods !== "undefined") {
       query += this.addMethodQueryParams(filter.methods);
     }
 
@@ -77,17 +81,17 @@ export class PaymentDownloadService {
   }
 
   private addDateQueryParams(fromDate: Date, toDate: Date): string {
-    let query = '';
+    let query = "";
 
-    const dateFormat = 'DDMMYYYYHHmm';
+    const dateFormat = "DDMMYYYYHHmm";
 
-    if (typeof fromDate !== 'undefined') {
+    if (typeof fromDate !== "undefined") {
       const fromDateString = moment(fromDate).format(dateFormat);
 
       query += `&creationTime=>${fromDateString}`;
     }
 
-    if (typeof toDate !== 'undefined') {
+    if (typeof toDate !== "undefined") {
       const toDateString = moment(toDate).format(dateFormat);
 
       query += `&creationTime=<${toDateString}`;
@@ -97,7 +101,7 @@ export class PaymentDownloadService {
   }
 
   private addBranchIdQueryParams(branchIds: string[]): string {
-    let query = '';
+    let query = "";
 
     for (const branchId of branchIds) {
       query += `&branch=${branchId}`;
@@ -107,7 +111,7 @@ export class PaymentDownloadService {
   }
 
   private addMethodQueryParams(methods: string[]): string {
-    let query = '';
+    let query = "";
 
     for (const method of methods) {
       query += `&method=${method}`;
@@ -116,4 +120,3 @@ export class PaymentDownloadService {
     return query;
   }
 }
-

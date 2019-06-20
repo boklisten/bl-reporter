@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { PaymentDownloadService } from './payment-download.service';
-import { PaymentFilter } from './paymentFilter';
-import { ExcelService } from '../../excel/excel.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { PaymentDownloadService } from "./payment-download.service";
+import { PaymentFilter } from "./paymentFilter";
+import { ExcelService } from "../../excel/excel.service";
 
 @Component({
-  selector: 'app-payment-download',
-  templateUrl: './payment-download.component.html',
-  styleUrls: ['./payment-download.component.scss']
+  selector: "app-payment-download",
+  templateUrl: "./payment-download.component.html",
+  styleUrls: ["./payment-download.component.scss"]
 })
 export class PaymentDownloadComponent implements OnInit {
   public filter: PaymentFilter;
@@ -15,24 +15,24 @@ export class PaymentDownloadComponent implements OnInit {
   public wait: boolean;
   @Input() currentBranchId: string;
 
-  constructor(private paymentDownloadService: PaymentDownloadService,
-              private excelService: ExcelService) {
-    
+  constructor(
+    private paymentDownloadService: PaymentDownloadService,
+    private excelService: ExcelService
+  ) {
     this.filter = {
       branchIds: [],
       fromDate: new Date(),
       toDate: new Date(),
       methods: []
-    }
+    };
 
     this.noPaymentsFound = false;
     this.currentBranch = true;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  public onPeriodChange(period: {fromDate: Date, toDate: Date}) {
+  public onPeriodChange(period: { fromDate: Date; toDate: Date }) {
     this.filter.fromDate = period.fromDate;
     this.filter.toDate = period.toDate;
   }
@@ -40,17 +40,20 @@ export class PaymentDownloadComponent implements OnInit {
   public onGetPayments() {
     this.noPaymentsFound = false;
     this.wait = true;
-    
-    if (this.currentBranch && (typeof this.currentBranchId !== 'undefined')) {
+
+    if (this.currentBranch && typeof this.currentBranchId !== "undefined") {
       this.filter.branchIds = [this.currentBranchId];
     }
 
-    this.paymentDownloadService.getPaymentsByFilter(this.filter).then((payments) => {
-      this.paymentDownloadService.printPaymentsToExcel(payments, 'payments');
-      this.wait = false;
-    }).catch(() => {
-      this.noPaymentsFound = true;
-      this.wait = false;
-    }) 
+    this.paymentDownloadService
+      .getPaymentsByFilter(this.filter)
+      .then(payments => {
+        this.paymentDownloadService.printPaymentsToExcel(payments, "payments");
+        this.wait = false;
+      })
+      .catch(() => {
+        this.noPaymentsFound = true;
+        this.wait = false;
+      });
   }
 }
