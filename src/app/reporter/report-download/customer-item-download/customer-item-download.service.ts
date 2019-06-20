@@ -46,6 +46,7 @@ export class CustomerItemDownloadService {
   private customerItemToExcelObj(customerItem: CustomerItem): any {
     let excelObj = {
       id: customerItem.id ? customerItem.id : null,
+      type: customerItem.type ? customerItem.type : null,
       deadline: customerItem.deadline
         ? this.dateService.convertToExcelDate(customerItem.deadline)
         : null,
