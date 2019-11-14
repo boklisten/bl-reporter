@@ -19,7 +19,7 @@ export class OrderDownloadComponent implements OnInit {
 	public currentBranch: boolean;
 	public wait: boolean;
 
-  constructor(private _databaseReportOrderService: OrderDownloadService, 
+  constructor(private _databaseReportOrderService: OrderDownloadService,
     private _databaseExcelService: ExcelService) {
 	}
 
@@ -60,7 +60,7 @@ export class OrderDownloadComponent implements OnInit {
 			fromDate: this.fromDate,
 			byCustomer: this.byCustomer,
       toDate: this.toDate,
-      includedOrderItemTypes: ['rent', 'buy']
+      includedOrderItemTypes: ['rent', 'buy', 'partly-payment', 'sell']
     };
 
 		this.wait = true;
