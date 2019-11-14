@@ -44,7 +44,7 @@
     "zone.js": "~0.8.26"
   },
   "dependencies": {
-    "@wizardcoder/bl-connect": "^0.12.1",
+    "@wizardcoder/bl-connect": "^0.14.0",
     "@wizardcoder/bl-model": "^0.22.0"
   },
   "devDependencies": {
