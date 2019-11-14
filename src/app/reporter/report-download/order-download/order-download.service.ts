@@ -138,6 +138,7 @@ export class OrderDownloadService {
         taxAmount: orderItem.taxAmount,
         deliveryId: order.delivery,
         type: orderItem.type,
+        payed: order.payments && order.payments.length > 0 ? 1 : 0,
         movedToOrder: orderItem.movedToOrder,
         creationTime: order.creationTime,
         pivot: 1 // used for excel pivot table
