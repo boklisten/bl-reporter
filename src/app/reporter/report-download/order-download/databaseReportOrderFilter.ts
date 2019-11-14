@@ -7,6 +7,7 @@ type OrderItemType =
   | "return"
   | "cancel"
   | "partly-payment"
+  | "loan"
   | "buyback";
 
 export interface DatabaseReportOrderFilter {
