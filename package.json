@@ -1,5 +1,5 @@
 {
-  "name": "@wizardcoder/bl-reporter",
+  "name": "@boklisten/bl-reporter",
   "version": "0.3.5",
   "scripts": {
     "ng": "ng",
@@ -17,8 +17,8 @@
       "entryFile": "public_api.ts"
     },
     "whitelistedNonPeerDependencies": [
-      "@wizardcoder/bl-connect",
-      "@wizardcoder/bl-model"
+      "@boklisten/bl-connect",
+      "@boklisten/bl-model"
     ]
   },
   "peerDependencies": {
@@ -44,8 +44,8 @@
     "zone.js": "~0.8.26"
   },
   "dependencies": {
-    "@wizardcoder/bl-connect": "^0.14.0",
-    "@wizardcoder/bl-model": "^0.22.0"
+    "@boklisten/bl-connect": "^0.12.1",
+    "@boklisten/bl-model": "^0.19.17"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
@@ -68,7 +68,7 @@
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
-    "@wizardcoder/bl-login": "^0.7.1",
+    "@boklisten/bl-login": "^0.7.1",
     "bootstrap": "4.0.0",
     "classlist.js": "^1.1.20150312",
     "codelyzer": "~4.3.0",
@@ -94,5 +94,17 @@
     "typescript": "~2.9.2",
     "xlsx": "^0.14.0",
     "zone.js": "~0.8.26"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boklisten/bl-reporter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boklisten/bl-reporter/issues"
+  },
+  "homepage": "https://github.com/boklisten/bl-reporter#readme"
 }

@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CustomerItemDownloadService } from './customer-item-download.service';
-import { CustomerItemFilter } from './customerItemFilter'; 
-import { CustomerItem } from '@wizardcoder/bl-model';
+import { Component, OnInit, Input } from "@angular/core";
+import { CustomerItemDownloadService } from "./customer-item-download.service";
+import { CustomerItemFilter } from "./customerItemFilter";
+import { CustomerItem } from "@boklisten/bl-model";
 
 @Component({
-  selector: 'app-customer-item-download',
-  templateUrl: './customer-item-download.component.html',
-  styleUrls: ['./customer-item-download.component.scss']
+  selector: "app-customer-item-download",
+  templateUrl: "./customer-item-download.component.html",
+  styleUrls: ["./customer-item-download.component.scss"]
 })
 export class CustomerItemDownloadComponent implements OnInit {
   @Input() currentBranchId: string;
@@ -18,7 +18,9 @@ export class CustomerItemDownloadComponent implements OnInit {
   public noCustomerItemsFound: boolean;
   public buyout: boolean;
 
-  constructor(private customerItemDownloadService: CustomerItemDownloadService) {
+  constructor(
+    private customerItemDownloadService: CustomerItemDownloadService
+  ) {
     this.wait = false;
     this.noCustomerItemsFound = false;
     this.returned = false;
@@ -28,47 +30,52 @@ export class CustomerItemDownloadComponent implements OnInit {
     this.customerItemFilter = {
       fromDate: new Date(),
       toDate: new Date()
-    }
+    };
   }
 
   ngOnInit() {
-    this.currentBranch = (typeof this.currentBranchId !== 'undefined');
+    this.currentBranch = typeof this.currentBranchId !== "undefined";
   }
 
-  public onPeriodChange(period: {fromDate: Date, toDate: Date}) {
-    this.customerItemFilter.fromDate = period.fromDate; 
+  public onPeriodChange(period: { fromDate: Date; toDate: Date }) {
+    this.customerItemFilter.fromDate = period.fromDate;
     this.customerItemFilter.toDate = period.toDate;
   }
 
   public onPrintCustomerItems() {
-    if (this.currentBranch && (typeof this.currentBranchId !== 'undefined')) {
-      this.customerItemFilter['branchIds'] = [this.currentBranchId];
+    if (this.currentBranch && typeof this.currentBranchId !== "undefined") {
+      this.customerItemFilter["branchIds"] = [this.currentBranchId];
     }
 
     if (!this.returned && this.notReturned) {
-      this.customerItemFilter['returned'] = false;
+      this.customerItemFilter["returned"] = false;
     } else if (this.returned && !this.notReturned) {
-      this.customerItemFilter['returned'] = true;
+      this.customerItemFilter["returned"] = true;
     } else {
-      this.customerItemFilter['returned'] = undefined;
+      this.customerItemFilter["returned"] = undefined;
     }
 
     if (this.buyout) {
-      this.customerItemFilter['buyout'] = true;
+      this.customerItemFilter["buyout"] = true;
     } else {
-      this.customerItemFilter['buyout'] = undefined;
+      this.customerItemFilter["buyout"] = undefined;
     }
 
     this.wait = true;
     this.noCustomerItemsFound = false;
 
-    this.customerItemDownloadService.getCustomerItemsByFilter(this.customerItemFilter).then((filteredCustomerItems: CustomerItem[]) => {
-      this.customerItemDownloadService.printCustomerItemsToExcelFile(filteredCustomerItems, 'customerItems');
-      this.wait = false;
-    }).catch((err) => {
-      this.wait = false;
-      this.noCustomerItemsFound = true;
-    })
+    this.customerItemDownloadService
+      .getCustomerItemsByFilter(this.customerItemFilter)
+      .then((filteredCustomerItems: CustomerItem[]) => {
+        this.customerItemDownloadService.printCustomerItemsToExcelFile(
+          filteredCustomerItems,
+          "customerItems"
+        );
+        this.wait = false;
+      })
+      .catch(err => {
+        this.wait = false;
+        this.noCustomerItemsFound = true;
+      });
   }
-
 }

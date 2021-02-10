@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { UserDetailDownloadService } from "./user-detail-download.service";
-import { UserDetail } from "@wizardcoder/bl-model";
+import { UserDetail } from "@boklisten/bl-model";
 
 @Component({
   selector: "app-user-detail-download",

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CustomerItemFilter } from "./customerItemFilter";
-import { CustomerItemService } from "@wizardcoder/bl-connect";
-import { CustomerItem } from "@wizardcoder/bl-model";
+import { CustomerItemService } from "@boklisten/bl-connect";
+import { CustomerItem } from "@boklisten/bl-model";
 import { DateService } from "../../../bl-common/date/date.service";
 import { ExcelService } from "../../excel/excel.service";
 

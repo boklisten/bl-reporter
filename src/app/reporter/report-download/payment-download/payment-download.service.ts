@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { PaymentService } from "@wizardcoder/bl-connect";
+import { PaymentService } from "@boklisten/bl-connect";
 import { PaymentFilter } from "./paymentFilter";
-import { Payment } from "@wizardcoder/bl-model";
+import { Payment } from "@boklisten/bl-model";
 import { ExcelService } from "../../excel/excel.service";
 import moment from "moment-es6";
 

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { OrderService, UserDetailService } from "@wizardcoder/bl-connect";
-import { Order, OrderItem } from "@wizardcoder/bl-model";
+import { OrderService, UserDetailService } from "@boklisten/bl-connect";
+import { Order, OrderItem } from "@boklisten/bl-model";
 import { ExcelService } from "../../excel/excel.service";
 import { DatabaseReportOrderFilter } from "./databaseReportOrderFilter";
 
