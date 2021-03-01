@@ -70,8 +70,8 @@ export class OrderDownloadComponent implements OnInit {
         "cancel",
         "buyback",
         "buyout",
-        "extend"
-      ]
+        "extend",
+      ],
     };
 
     this.wait = true;
