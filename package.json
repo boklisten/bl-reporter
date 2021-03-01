@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pkg": "ng-packagr -p package.json",
-    "pkg:pub": "npm run pkg && npm publish ./dist/",
+    "pub": "npm run pkg && npm publish ./dist/",
     "prettier": "prettier --write . --ignore-path=.gitignore"
   },
   "$schema": "./node_modules/ng-packagr/package.schema.json",
@@ -17,9 +17,24 @@
     "lib": {
       "entryFile": "public_api.ts"
     },
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
+      "@angular/localize",
       "@boklisten/bl-connect",
-      "@boklisten/bl-model"
+      "@boklisten/bl-model",
+      "@fortawesome/angular-fontawesome",
+      "@fortawesome/fontawesome-svg-core",
+      "@fortawesome/free-brands-svg-icons",
+      "@fortawesome/free-regular-svg-icons",
+      "@fortawesome/free-solid-svg-icons",
+      "@ng-bootstrap/ng-bootstrap",
+      "bootstrap",
+      "classlist.js",
+      "core-js",
+      "file-saver",
+      "intl",
+      "moment-es6",
+      "tslib",
+      "xlsx"
     ]
   },
   "dependencies": {
