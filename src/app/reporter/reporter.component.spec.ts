@@ -1,26 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { Component } from "@angular/core";
 
-import { ReporterComponent } from './reporter.component';
+import { ReporterComponent } from "./reporter.component";
 
-@Component({selector: 'app-report-download', template: ''})
-class ReportDownloadStubComponent {
+@Component({ selector: "app-report-download", template: "" })
+class ReportDownloadStubComponent {}
 
-}
-
-describe('ReporterComponent', () => {
+describe("ReporterComponent", () => {
   let component: ReporterComponent;
   let fixture: ComponentFixture<ReporterComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ 
-        ReporterComponent,
-        ReportDownloadStubComponent
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ReporterComponent, ReportDownloadStubComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ReporterComponent);
@@ -28,7 +24,7 @@ describe('ReporterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

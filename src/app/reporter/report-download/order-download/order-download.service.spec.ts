@@ -16,7 +16,7 @@ describe("OrderDownloadService", () => {
 
   beforeEach(() => {
     const excelSpy = jasmine.createSpyObj("ExcelService", [
-      "objectsToExcelFile"
+      "objectsToExcelFile",
     ]);
     const orderSpy = jasmine.createSpyObj("OrderService", ["getAll"]);
 
@@ -24,36 +24,36 @@ describe("OrderDownloadService", () => {
       providers: [
         { provide: OrderService, useValue: orderSpy },
         { provide: UserDetailService, useClass: UserDetailStubService },
-        { provide: ExcelService, useValue: excelServiceSpy }
-      ]
+        { provide: ExcelService, useValue: excelServiceSpy },
+      ],
     });
   });
 
   beforeEach(() => {
-    excelServiceSpy = TestBed.get(ExcelService);
-    orderServiceSpy = TestBed.get(OrderService);
+    excelServiceSpy = TestBed.inject(ExcelService);
+    orderServiceSpy = TestBed.inject(OrderService);
   });
 
   it("should be created", () => {
-    const service: OrderDownloadService = TestBed.get(OrderDownloadService);
+    const service: OrderDownloadService = TestBed.inject(OrderDownloadService);
     expect(service).toBeTruthy();
   });
 
-  it("should call api with correct query based on filter", done => {
-    const service: OrderDownloadService = TestBed.get(OrderDownloadService);
+  it("should call api with correct query based on filter", (done) => {
+    const service: OrderDownloadService = TestBed.inject(OrderDownloadService);
 
     const filter = {
       branchId: "branch1",
       fromDate: new Date(2000, 0, 1),
       toDate: new Date(2001, 0, 1),
-      byCustomer: true
+      byCustomer: true,
     };
 
     const orders: Order[] = [{ id: "1", byCustomer: true }] as Order[];
 
     orderServiceSpy.getAll.and.returnValue(orders);
 
-    service.getOrdersByFilter(filter).then(returnedOrders => {
+    service.getOrdersByFilter(filter).then((returnedOrders) => {
       let args = orderServiceSpy.getAll.calls.mostRecent().args;
 
       expect(args[0]).toContain("creationTime=>010120000000");
@@ -68,18 +68,18 @@ describe("OrderDownloadService", () => {
     });
   });
 
-  it("should call api with correct query if orderItemNotDelivered flag is set in filter", done => {
-    const service: OrderDownloadService = TestBed.get(OrderDownloadService);
+  it("should call api with correct query if orderItemNotDelivered flag is set in filter", (done) => {
+    const service: OrderDownloadService = TestBed.inject(OrderDownloadService);
 
     const filter = {
-      orderItemNotHandedOut: true
+      orderItemNotHandedOut: true,
     };
 
     const orders: Order[] = [{ id: "1", byCustomer: true }] as Order[];
 
     orderServiceSpy.getAll.and.returnValue(orders);
 
-    service.getOrdersByFilter(filter).then(returnedOrders => {
+    service.getOrdersByFilter(filter).then((returnedOrders) => {
       let args = orderServiceSpy.getAll.calls.mostRecent().args;
 
       expect(args[0].indexOf("orderItems.handout") > -1).toBeFalsy();
@@ -98,26 +98,26 @@ describe("OrderDownloadService", () => {
           {
             id: "orderItem1",
             type: "buy",
-            title: "some title"
+            title: "some title",
           },
           {
             id: "orderItem1",
             type: "rent",
-            title: "some title"
+            title: "some title",
           },
           {
             id: "orderItem1",
             type: "sell",
-            title: "some title"
-          }
-        ]
+            title: "some title",
+          },
+        ],
       };
 
       const filter = {
-        includedOrderItemTypes: ["rent", "buy"]
+        includedOrderItemTypes: ["rent", "buy"],
       };
 
-      const service = TestBed.get(OrderDownloadService);
+      const service = TestBed.inject(OrderDownloadService);
 
       let expectedOutput = []; // this should only include items wiht buy or sell
       expectedOutput.push(order.orderItems[0]); // this has type buy
@@ -128,7 +128,7 @@ describe("OrderDownloadService", () => {
 
     describe("when filter flag orderItemNotHandedOut is set", () => {
       it("should not include orderItems with movedToOrder", () => {
-        const service = TestBed.get(OrderDownloadService);
+        const service = TestBed.inject(OrderDownloadService);
         const order = {
           id: "",
           orderItems: [
@@ -139,27 +139,27 @@ describe("OrderDownloadService", () => {
               handout: true,
               customerItem: "",
               movedToOrder: "movedToOrder1",
-              movedFromOrder: ""
+              movedFromOrder: "",
             },
             {
               type: "rent",
               item: "item1",
               title: "another title",
               movedToOrder: "movedToOrder2",
-              customerItem: ""
-            }
-          ]
+              customerItem: "",
+            },
+          ],
         };
 
         const filter = {
-          orderItemNotHandedOut: true
+          orderItemNotHandedOut: true,
         };
 
         expect(service.filterOrderItems(filter, order as Order)).toEqual([]);
       });
 
       it("should not include orderItems with customerItem", () => {
-        const service = TestBed.get(OrderDownloadService);
+        const service = TestBed.inject(OrderDownloadService);
         const order = {
           id: "",
           orderItems: [
@@ -168,26 +168,26 @@ describe("OrderDownloadService", () => {
               item: "item1",
               title: "Some Title",
               handout: true,
-              customerItem: "customerItem1"
+              customerItem: "customerItem1",
             },
             {
               type: "rent",
               item: "item1",
               title: "another title",
-              customerItem: "customerItem2"
-            }
-          ]
+              customerItem: "customerItem2",
+            },
+          ],
         };
 
         const filter = {
-          orderItemNotHandedOut: true
+          orderItemNotHandedOut: true,
         };
 
         expect(service.filterOrderItems(filter, order as Order)).toEqual([]);
       });
 
       it("should not include orderItems with handout set to true", () => {
-        const service = TestBed.get(OrderDownloadService);
+        const service = TestBed.inject(OrderDownloadService);
         const order = {
           id: "",
           orderItems: [
@@ -195,26 +195,26 @@ describe("OrderDownloadService", () => {
               type: "rent",
               item: "item1",
               title: "Some Title",
-              handout: true
+              handout: true,
             },
             {
               type: "rent",
               item: "item1",
               title: "another title",
-              handout: true
-            }
-          ]
+              handout: true,
+            },
+          ],
         };
 
         const filter = {
-          orderItemNotHandedOut: true
+          orderItemNotHandedOut: true,
         };
 
         expect(service.filterOrderItems(filter, order as Order)).toEqual([]);
       });
 
       it("should not include orderItems with delivered set to true", () => {
-        const service = TestBed.get(OrderDownloadService);
+        const service = TestBed.inject(OrderDownloadService);
         const order = {
           id: "",
           orderItems: [
@@ -222,44 +222,44 @@ describe("OrderDownloadService", () => {
               type: "rent",
               item: "item1",
               title: "Some Title",
-              delivered: true
+              delivered: true,
             },
             {
               type: "rent",
               item: "item1",
               title: "another title",
-              delivered: true
-            }
-          ]
+              delivered: true,
+            },
+          ],
         };
 
         const filter = {
-          orderItemNotHandedOut: true
+          orderItemNotHandedOut: true,
         };
 
         expect(service.filterOrderItems(filter, order as Order)).toEqual([]);
       });
 
       it("should include orderItems that are not handed out", () => {
-        const service = TestBed.get(OrderDownloadService);
+        const service = TestBed.inject(OrderDownloadService);
         const order = {
           id: "",
           orderItems: [
             {
               type: "rent",
               item: "item1",
-              title: "Some Title"
+              title: "Some Title",
             },
             {
               type: "rent",
               item: "item2",
-              title: "another title"
-            }
-          ]
+              title: "another title",
+            },
+          ],
         };
 
         const filter = {
-          orderItemNotHandedOut: true
+          orderItemNotHandedOut: true,
         };
 
         expect(service.filterOrderItems(filter, order as Order)).toEqual(
@@ -279,15 +279,15 @@ describe("OrderDownloadService", () => {
               type: "rent",
               item: "item1",
               title: "Some Title",
-              customerItem: "customerItem1"
+              customerItem: "customerItem1",
             },
             {
               type: "rent",
               item: "item2",
               title: "another title",
-              customerItem: "customerItem2"
-            }
-          ]
+              customerItem: "customerItem2",
+            },
+          ],
         },
         {
           id: "order2",
@@ -295,29 +295,29 @@ describe("OrderDownloadService", () => {
             {
               type: "rent",
               item: "item1",
-              title: "Hitch"
+              title: "Hitch",
             },
             {
               type: "rent",
               item: "item2",
               title: "another title",
-              customerItem: "customerItem2"
-            }
-          ]
-        }
+              customerItem: "customerItem2",
+            },
+          ],
+        },
       ];
 
-      const service = TestBed.get(OrderDownloadService);
+      const service = TestBed.inject(OrderDownloadService);
 
       const filter = {
-        orderItemNotHandedOut: true
+        orderItemNotHandedOut: true,
       };
 
       let expectedOutput = [
         {
           id: orders[1].id,
-          orderItems: [orders[1].orderItems[0]]
-        }
+          orderItems: [orders[1].orderItems[0]],
+        },
       ];
 
       expect(service.filterOrders(filter, orders)).toEqual(expectedOutput);

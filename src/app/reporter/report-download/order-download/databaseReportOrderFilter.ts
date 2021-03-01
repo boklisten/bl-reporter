@@ -1,14 +1,4 @@
-type OrderItemType =
-  | "rent"
-  | "buy"
-  | "extend"
-  | "sell"
-  | "buyout"
-  | "return"
-  | "cancel"
-  | "partly-payment"
-  | "loan"
-  | "buyback";
+import { OrderItemType } from "@boklisten/bl-model";
 
 export interface DatabaseReportOrderFilter {
   branchId?: string;

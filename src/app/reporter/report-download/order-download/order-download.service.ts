@@ -7,7 +7,7 @@ import { DatabaseReportOrderFilter } from "./databaseReportOrderFilter";
 import moment from "moment-es6";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class OrderDownloadService {
   private _dateFormat: string;
@@ -141,7 +141,7 @@ export class OrderDownloadService {
         payed: order.payments && order.payments.length > 0 ? 1 : 0,
         movedToOrder: orderItem.movedToOrder,
         creationTime: order.creationTime,
-        pivot: 1 // used for excel pivot table
+        pivot: 1, // used for excel pivot table
       });
     }
     return excelObjects;

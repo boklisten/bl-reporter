@@ -6,7 +6,7 @@ import { ExcelService } from "../../excel/excel.service";
 @Component({
   selector: "app-payment-download",
   templateUrl: "./payment-download.component.html",
-  styleUrls: ["./payment-download.component.scss"]
+  styleUrls: ["./payment-download.component.scss"],
 })
 export class PaymentDownloadComponent implements OnInit {
   public filter: PaymentFilter;
@@ -23,7 +23,7 @@ export class PaymentDownloadComponent implements OnInit {
       branchIds: [],
       fromDate: new Date(),
       toDate: new Date(),
-      methods: []
+      methods: [],
     };
 
     this.noPaymentsFound = false;
@@ -47,7 +47,7 @@ export class PaymentDownloadComponent implements OnInit {
 
     this.paymentDownloadService
       .getPaymentsByFilter(this.filter)
-      .then(payments => {
+      .then((payments) => {
         this.paymentDownloadService.printPaymentsToExcel(payments, "payments");
         this.wait = false;
       })

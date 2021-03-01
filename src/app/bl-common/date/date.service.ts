@@ -49,7 +49,7 @@ export class DateService {
 
     return {
       fromDate: currentDate.toDate(),
-      toDate: currentDate.add(1, "day").toDate()
+      toDate: currentDate.add(1, "day").toDate(),
     };
   }
 
@@ -61,7 +61,7 @@ export class DateService {
       // the current semester is the fall semester
       return {
         fromDate: this._defaultSpringSemesterDeadlineDate.toDate(),
-        toDate: this._defaultFallSemesterDeadlineDate.toDate()
+        toDate: this._defaultFallSemesterDeadlineDate.toDate(),
       };
     } else {
       // the current semester is the spring semester
@@ -71,7 +71,7 @@ export class DateService {
       );
       return {
         fromDate: lastYearsFallDeadline.toDate(),
-        toDate: this._defaultSpringSemesterDeadlineDate.toDate()
+        toDate: this._defaultSpringSemesterDeadlineDate.toDate(),
       };
     }
   }
@@ -82,7 +82,7 @@ export class DateService {
     console.log("from", fromDate, "toDate", toDate);
     return {
       fromDate: fromDate.toDate(),
-      toDate: toDate.toDate()
+      toDate: toDate.toDate(),
     };
   }
 
@@ -98,7 +98,7 @@ export class DateService {
         .second(0)
         .millisecond(0)
         .toDate(),
-      toDate: toDate.toDate()
+      toDate: toDate.toDate(),
     };
   }
 

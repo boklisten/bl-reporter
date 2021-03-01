@@ -12,101 +12,105 @@ describe("PaymentDownloadService", () => {
       providers: [
         {
           provide: PaymentService,
-          useValue: jasmine.createSpyObj("PaymentService", ["get"])
+          useValue: jasmine.createSpyObj("PaymentService", ["get"]),
         },
         {
           provide: ExcelService,
-          useValue: jasmine.createSpyObj("ExcelService", ["objectsToExcelFile"])
-        }
-      ]
+          useValue: jasmine.createSpyObj("ExcelService", [
+            "objectsToExcelFile",
+          ]),
+        },
+      ],
     });
   });
 
   beforeEach(() => {
-    paymentServiceSpy = TestBed.get(PaymentService);
+    paymentServiceSpy = TestBed.inject(PaymentService);
   });
 
   it("should be created", () => {
-    const service: PaymentDownloadService = TestBed.get(PaymentDownloadService);
+    const service: PaymentDownloadService = TestBed.inject(
+      PaymentDownloadService
+    );
     expect(service).toBeTruthy();
   });
 
   describe("#getPaymentsByFilter", () => {
-    it("should return all payments if no filter is provided", done => {
+    it("should return all payments if no filter is provided", (done) => {
       const payments: any = [
         {
           id: "payment1",
           method: "dibs",
-          amount: 100
+          amount: 100,
         },
         {
           id: "payment2",
           method: "card",
-          amount: 100
-        }
+          amount: 100,
+        },
       ];
 
-      const service: PaymentDownloadService = TestBed.get(
+      const service: PaymentDownloadService = TestBed.inject(
         PaymentDownloadService
       );
 
       paymentServiceSpy.get.and.returnValues(payments);
 
-      service.getPaymentsByFilter({}).then(returnedValue => {
+      service.getPaymentsByFilter({}).then((returnedValue) => {
         expect(returnedValue).toEqual(payments);
         done();
       });
     });
 
     describe("when filter is provided", () => {
-      it("should return payments when returned from api", done => {
+      it("should return payments when returned from api", (done) => {
         const payments: any = [
           {
             id: "payment1",
             method: "dibs",
-            amount: 100
+            amount: 100,
           },
           {
             id: "payment2",
             method: "card",
-            amount: 100
-          }
+            amount: 100,
+          },
         ];
 
         const filter = {
-          branchIds: ["branchId"]
+          branchIds: ["branchId"],
         };
 
-        const paymentDownloadService = TestBed.get(PaymentDownloadService);
+        const paymentDownloadService = TestBed.inject(PaymentDownloadService);
 
         paymentServiceSpy.get.and.returnValue(payments);
 
         paymentDownloadService
           .getPaymentsByFilter(filter)
-          .then(downloadedPayments => {
+          .then((downloadedPayments) => {
             expect(downloadedPayments).toEqual(payments);
             done();
           });
       });
 
       describe('when "branchId" is present in filter', () => {
-        it("should have branchId present in query", done => {
+        it("should have branchId present in query", (done) => {
           const payments: any = [
             {
               id: "payment1",
               method: "dibs",
-              amount: 100
-            }
+              amount: 100,
+            },
           ];
 
           paymentServiceSpy.get.and.returnValue(payments);
 
-          const service: PaymentDownloadService = TestBed.get(
+          const service: PaymentDownloadService = TestBed.inject(
             PaymentDownloadService
           );
 
           const filter = {
-            branchIds: ["branch1"]
+            branchIds: ["branch1"],
           };
 
           service.getPaymentsByFilter(filter).then(() => {
@@ -118,15 +122,15 @@ describe("PaymentDownloadService", () => {
           });
         });
 
-        it("should have all branchIds from filter present in query", done => {
+        it("should have all branchIds from filter present in query", (done) => {
           paymentServiceSpy.get.and.returnValue([]);
 
-          const service: PaymentDownloadService = TestBed.get(
+          const service: PaymentDownloadService = TestBed.inject(
             PaymentDownloadService
           );
 
           const filter = {
-            branchIds: ["branch1", "branch2", "branch3", "branch4"]
+            branchIds: ["branch1", "branch2", "branch3", "branch4"],
           };
 
           service.getPaymentsByFilter(filter).then(() => {
@@ -143,24 +147,24 @@ describe("PaymentDownloadService", () => {
       });
 
       describe('when "fromDate" and "toDate" is present in filter', () => {
-        it("should have fromDate and toDate present in query", done => {
+        it("should have fromDate and toDate present in query", (done) => {
           const payments: any = [
             {
               id: "payment1",
               method: "dibs",
-              amount: 100
-            }
+              amount: 100,
+            },
           ];
 
           paymentServiceSpy.get.and.returnValue(payments);
 
-          const service: PaymentDownloadService = TestBed.get(
+          const service: PaymentDownloadService = TestBed.inject(
             PaymentDownloadService
           );
 
           const filter = {
             fromDate: new Date(2000, 0, 1),
-            toDate: new Date(2001, 0, 1)
+            toDate: new Date(2001, 0, 1),
           };
 
           service.getPaymentsByFilter(filter).then(() => {
@@ -175,12 +179,12 @@ describe("PaymentDownloadService", () => {
       });
 
       describe("when methods is present in filter", () => {
-        it('should have method "cash" in query when in filter', done => {
+        it('should have method "cash" in query when in filter', (done) => {
           const filter = {
-            methods: ["cash"]
+            methods: ["cash"],
           };
 
-          const service = TestBed.get(PaymentDownloadService);
+          const service = TestBed.inject(PaymentDownloadService);
           paymentServiceSpy.get.and.returnValue([]);
 
           service.getPaymentsByFilter(filter).then(() => {
@@ -191,12 +195,12 @@ describe("PaymentDownloadService", () => {
           });
         });
 
-        it("should all methods in query present in filter", done => {
+        it("should all methods in query present in filter", (done) => {
           const filter = {
-            methods: ["cash", "card", "dibs"]
+            methods: ["cash", "card", "dibs"],
           };
 
-          const service = TestBed.get(PaymentDownloadService);
+          const service = TestBed.inject(PaymentDownloadService);
           paymentServiceSpy.get.and.returnValue([]);
 
           service.getPaymentsByFilter(filter).then(() => {

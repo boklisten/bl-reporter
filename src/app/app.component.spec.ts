@@ -1,4 +1,4 @@
-import { TestBed, async } from "@angular/core/testing";
+import { TestBed, waitForAsync } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { Component, Injectable } from "@angular/core";
 import { LoginService } from "@boklisten/bl-connect";
@@ -14,15 +14,20 @@ class LoginStubService {
 }
 
 describe("AppComponent", () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AppComponent, ReporterStubComponent],
-      providers: [{ provide: LoginService, useClass: LoginStubService }]
-    }).compileComponents();
-  }));
-  it("should create the app", async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AppComponent, ReporterStubComponent],
+        providers: [{ provide: LoginService, useClass: LoginStubService }],
+      }).compileComponents();
+    })
+  );
+  it(
+    "should create the app",
+    waitForAsync(() => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const app = fixture.debugElement.componentInstance;
+      expect(app).toBeTruthy();
+    })
+  );
 });

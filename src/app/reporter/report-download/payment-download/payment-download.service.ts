@@ -6,7 +6,7 @@ import { ExcelService } from "../../excel/excel.service";
 import moment from "moment-es6";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class PaymentDownloadService {
   constructor(
@@ -56,7 +56,7 @@ export class PaymentDownloadService {
           : "",
       cofirmed: payment.confirmed,
       creationTime: payment.creationTime,
-      pivot: 1 // used by excel to make pivot tables
+      pivot: 1, // used by excel to make pivot tables
     };
   }
 

@@ -5,7 +5,7 @@ import { UserDetail } from "@boklisten/bl-model";
 @Component({
   selector: "app-user-detail-download",
   templateUrl: "./user-detail-download.component.html",
-  styleUrls: ["./user-detail-download.component.scss"]
+  styleUrls: ["./user-detail-download.component.scss"],
 })
 export class UserDetailDownloadComponent implements OnInit {
   public wait: boolean;

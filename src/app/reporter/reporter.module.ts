@@ -5,24 +5,18 @@ import { ReporterComponent } from "./reporter.component";
 import { FormsModule } from "@angular/forms";
 import { BlCommonModule } from "../bl-common/bl-common.module";
 import { BlConnectModule } from "@boklisten/bl-connect";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from "@fortawesome/angular-fontawesome";
 import {
   faLocationArrow,
   faToggleOn,
   faToggleOff,
   faCircleNotch,
-  faFileExcel
+  faFileExcel,
 } from "@fortawesome/free-solid-svg-icons";
 import { ReportDownloadModule } from "./report-download/report-download.module";
-
-library.add(
-  faLocationArrow,
-  faToggleOn,
-  faToggleOff,
-  faCircleNotch,
-  faFileExcel
-);
 
 @NgModule({
   imports: [
@@ -31,9 +25,19 @@ library.add(
     BlCommonModule,
     BlConnectModule,
     FontAwesomeModule,
-    ReportDownloadModule
+    ReportDownloadModule,
   ],
   declarations: [ReportDownloadComponent, ReporterComponent],
-  exports: [ReporterComponent]
+  exports: [ReporterComponent],
 })
-export class ReporterModule {}
+export class ReporterModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faLocationArrow,
+      faToggleOn,
+      faToggleOff,
+      faCircleNotch,
+      faFileExcel
+    );
+  }
+}

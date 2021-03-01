@@ -1,26 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
-import { BlCommonToggleButtonComponent } from './bl-common-toggle-button.component';
-import { Component, Input } from '@angular/core';
+import { BlCommonToggleButtonComponent } from "./bl-common-toggle-button.component";
+import { Component, Input } from "@angular/core";
 
-@Component({selector: 'fa-icon', template: ''})
+@Component({ selector: "fa-icon", template: "" })
 class FaIconStub {
   @Input() icon;
 }
 
-describe('BlCommonToggleButtonComponent', () => {
+describe("BlCommonToggleButtonComponent", () => {
   let component: BlCommonToggleButtonComponent;
   let fixture: ComponentFixture<BlCommonToggleButtonComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        BlCommonToggleButtonComponent,
-        FaIconStub
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [BlCommonToggleButtonComponent, FaIconStub],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BlCommonToggleButtonComponent);
@@ -28,7 +26,7 @@ describe('BlCommonToggleButtonComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

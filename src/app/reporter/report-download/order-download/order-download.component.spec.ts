@@ -1,32 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
-import { Injectable, Input, Component, Output, EventEmitter } from '@angular/core';
-import { OrderDownloadComponent } from './order-download.component';
-import { ExcelService } from '../../excel/excel.service';
-import { OrderDownloadService } from './order-download.service';
-
+import {
+  Injectable,
+  Input,
+  Component,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import { OrderDownloadComponent } from "./order-download.component";
+import { ExcelService } from "../../excel/excel.service";
+import { OrderDownloadService } from "./order-download.service";
 
 @Injectable()
-class OrderDownloadStubService {
-}
-
+class OrderDownloadStubService {}
 
 @Injectable()
-class ExcelStubService {
-}
+class ExcelStubService {}
 
-@Component({selector: 'app-bl-common-update-button', template: ''})
+@Component({ selector: "app-bl-common-update-button", template: "" })
 class BlCommonUpdateButtonStubComponent {
   @Input() wait: any;
 }
 
-
-@Component({selector: 'fa-icon', template: ''})
+@Component({ selector: "fa-icon", template: "" })
 class FaIconStub {
   @Input() icon: any;
 }
 
-@Component({selector: 'app-bl-common-toggle-button', template: ''})
+@Component({ selector: "app-bl-common-toggle-button", template: "" })
 class BlCommonToggleButtonStubComponent {
   @Input() value;
   @Output() valueChange;
@@ -36,8 +37,7 @@ class BlCommonToggleButtonStubComponent {
   }
 }
 
-
-@Component({selector: 'app-blc-period-select', template: ''})
+@Component({ selector: "app-blc-period-select", template: "" })
 class BlcPeriodSelectStubComponent {
   @Input() period;
   @Output() periodChange: EventEmitter<any>;
@@ -47,26 +47,27 @@ class BlcPeriodSelectStubComponent {
   }
 }
 
-describe('OrderDownloadComponent', () => {
+describe("OrderDownloadComponent", () => {
   let component: OrderDownloadComponent;
   let fixture: ComponentFixture<OrderDownloadComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        OrderDownloadComponent,
-        BlCommonUpdateButtonStubComponent,
-        FaIconStub,
-        BlCommonToggleButtonStubComponent,
-        BlcPeriodSelectStubComponent
-      ],
-      providers: [
-        { provide: ExcelService, useClass: ExcelStubService },
-        { provide: OrderDownloadService, useClass: OrderDownloadStubService }
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          OrderDownloadComponent,
+          BlCommonUpdateButtonStubComponent,
+          FaIconStub,
+          BlCommonToggleButtonStubComponent,
+          BlcPeriodSelectStubComponent,
+        ],
+        providers: [
+          { provide: ExcelService, useClass: ExcelStubService },
+          { provide: OrderDownloadService, useClass: OrderDownloadStubService },
+        ],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OrderDownloadComponent);
@@ -74,7 +75,7 @@ describe('OrderDownloadComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

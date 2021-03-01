@@ -1,33 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { Pipe } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { FormsModule } from "@angular/forms";
+import { Pipe } from "@angular/core";
 
-import { BlcEditDateValueComponent } from './blc-edit-date-value.component';
+import { BlcEditDateValueComponent } from "./blc-edit-date-value.component";
 
-
-@Pipe({name: 'blDate'})
+@Pipe({ name: "blDate" })
 class BlDateStubPipe {
-  transform() {
-
-  }
+  transform() {}
 }
 
-describe('BlcEditDateValueComponent', () => {
+describe("BlcEditDateValueComponent", () => {
   let component: BlcEditDateValueComponent;
   let fixture: ComponentFixture<BlcEditDateValueComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ 
-        BlcEditDateValueComponent,
-        BlDateStubPipe
-      ],
-      imports: [
-        FormsModule
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [BlcEditDateValueComponent, BlDateStubPipe],
+        imports: [FormsModule],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BlcEditDateValueComponent);
@@ -35,7 +28,7 @@ describe('BlcEditDateValueComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

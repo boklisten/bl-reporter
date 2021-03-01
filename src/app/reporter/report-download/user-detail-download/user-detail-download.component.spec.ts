@@ -1,17 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
-import { UserDetailDownloadComponent } from './user-detail-download.component';
+import { UserDetailDownloadComponent } from "./user-detail-download.component";
 
-describe('UserDetailDownloadComponent', () => {
+describe("UserDetailDownloadComponent", () => {
   let component: UserDetailDownloadComponent;
   let fixture: ComponentFixture<UserDetailDownloadComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UserDetailDownloadComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [UserDetailDownloadComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserDetailDownloadComponent);
@@ -19,7 +20,7 @@ describe('UserDetailDownloadComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

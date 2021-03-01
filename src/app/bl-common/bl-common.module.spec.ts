@@ -1,13 +1,13 @@
-import { BlCommonModule } from './bl-common.module';
+import { BlCommonModule } from "./bl-common.module";
 
-describe('BlCommonModule', () => {
+describe("BlCommonModule", () => {
   let blCommonModule: BlCommonModule;
 
   beforeEach(() => {
     blCommonModule = new BlCommonModule();
   });
 
-  it('should create an instance', () => {
+  it("should create an instance", () => {
     expect(blCommonModule).toBeTruthy();
   });
 });

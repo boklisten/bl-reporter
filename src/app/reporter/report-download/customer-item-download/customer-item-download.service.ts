@@ -6,7 +6,7 @@ import { DateService } from "../../../bl-common/date/date.service";
 import { ExcelService } from "../../excel/excel.service";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class CustomerItemDownloadService {
   constructor(
@@ -19,7 +19,7 @@ export class CustomerItemDownloadService {
     filter: CustomerItemFilter
   ): Promise<CustomerItem[]> {
     const customerItems = await this.customerItemService.get({
-      query: this.createQueryByFilter(filter)
+      query: this.createQueryByFilter(filter),
     });
     return customerItems;
   }
@@ -79,7 +79,7 @@ export class CustomerItemDownloadService {
       buyout: customerItem.buyout ? customerItem.buyout : null,
       buyoutOrderId: customerItem.buyoutInfo
         ? customerItem.buyoutInfo.order
-        : null
+        : null,
     };
 
     excelObj = this.attachCustomerToExcelObj(excelObj, customerItem);
@@ -101,8 +101,8 @@ export class CustomerItemDownloadService {
           isbn:
             item["info"] && item["info"]["isbn"]
               ? item["info"]["isbn"].toString()
-              : ""
-        }
+              : "",
+        },
       };
 
       excelObj["item"] = itemObj;
@@ -116,7 +116,7 @@ export class CustomerItemDownloadService {
       id: "",
       name: "",
       email: "",
-      phone: ""
+      phone: "",
     };
 
     if (typeof customerItem["customer"] !== "string") {

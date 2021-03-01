@@ -6,7 +6,7 @@ import { DatabaseReportOrderFilter } from "./databaseReportOrderFilter";
 @Component({
   selector: "app-order-download",
   templateUrl: "./order-download.component.html",
-  styleUrls: ["./order-download.component.scss"]
+  styleUrls: ["./order-download.component.scss"],
 })
 export class OrderDownloadComponent implements OnInit {
   @Input() currentBranchId: string;
@@ -81,7 +81,7 @@ export class OrderDownloadComponent implements OnInit {
       .then(() => {
         this.wait = false;
       })
-      .catch(err => {
+      .catch((err) => {
         this.noOrdersFound = true;
         this.wait = false;
       });

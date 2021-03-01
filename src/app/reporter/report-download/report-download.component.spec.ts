@@ -1,38 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
-import { ReportDownloadComponent } from './report-download.component';
-import { Component } from '@angular/core';
+import { ReportDownloadComponent } from "./report-download.component";
+import { Component } from "@angular/core";
 
-@Component({selector: 'app-order-download', template: ''})
-class OrderDownloadStubComponent {
+@Component({ selector: "app-order-download", template: "" })
+class OrderDownloadStubComponent {}
 
-}
+@Component({ selector: "app-payment-download", template: "" })
+class PaymentDownloadStubComponent {}
 
-@Component({selector: 'app-payment-download', template: ''})
-class PaymentDownloadStubComponent {
+@Component({ selector: "app-customer-item-download", template: "" })
+class CustomerItemDownloadStubComponent {}
 
-}
-
-@Component({selector: 'app-customer-item-download', template: ''})
-class CustomerItemDownloadStubComponent {
-
-}
-
-describe('ReportDownloadComponent', () => {
+describe("ReportDownloadComponent", () => {
   let component: ReportDownloadComponent;
   let fixture: ComponentFixture<ReportDownloadComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ 
-        ReportDownloadComponent,
-        OrderDownloadStubComponent,
-        PaymentDownloadStubComponent,
-        CustomerItemDownloadStubComponent
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          ReportDownloadComponent,
+          OrderDownloadStubComponent,
+          PaymentDownloadStubComponent,
+          CustomerItemDownloadStubComponent,
+        ],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ReportDownloadComponent);
@@ -40,7 +35,7 @@ describe('ReportDownloadComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,13 +1,13 @@
-import { ReportDownloadModule } from './report-download.module';
+import { ReportDownloadModule } from "./report-download.module";
 
-describe('ReportDownloadModule', () => {
+describe("ReportDownloadModule", () => {
   let reportDownloadModule: ReportDownloadModule;
 
   beforeEach(() => {
     reportDownloadModule = new ReportDownloadModule();
   });
 
-  it('should create an instance', () => {
+  it("should create an instance", () => {
     expect(reportDownloadModule).toBeTruthy();
   });
 });

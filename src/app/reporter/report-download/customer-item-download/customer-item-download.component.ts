@@ -6,7 +6,7 @@ import { CustomerItem } from "@boklisten/bl-model";
 @Component({
   selector: "app-customer-item-download",
   templateUrl: "./customer-item-download.component.html",
-  styleUrls: ["./customer-item-download.component.scss"]
+  styleUrls: ["./customer-item-download.component.scss"],
 })
 export class CustomerItemDownloadComponent implements OnInit {
   @Input() currentBranchId: string;
@@ -29,7 +29,7 @@ export class CustomerItemDownloadComponent implements OnInit {
 
     this.customerItemFilter = {
       fromDate: new Date(),
-      toDate: new Date()
+      toDate: new Date(),
     };
   }
 
@@ -73,7 +73,7 @@ export class CustomerItemDownloadComponent implements OnInit {
         );
         this.wait = false;
       })
-      .catch(err => {
+      .catch((err) => {
         this.wait = false;
         this.noCustomerItemsFound = true;
       });

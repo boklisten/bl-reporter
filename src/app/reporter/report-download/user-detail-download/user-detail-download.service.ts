@@ -4,7 +4,7 @@ import { UserDetail } from "@boklisten/bl-model";
 import { ExcelService } from "../../excel/excel.service";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class UserDetailDownloadService {
   constructor(
@@ -18,7 +18,7 @@ export class UserDetailDownloadService {
   ): Promise<UserDetail[]> {
     if (currentBranch) {
       return this.userDetailService.get({
-        query: "?branch=" + currentBranchId
+        query: "?branch=" + currentBranchId,
       });
     }
     return this.userDetailService.get();
@@ -53,7 +53,7 @@ export class UserDetailDownloadService {
       dob: userDetail.dob,
       branchId: userDetail.branch,
       creationTime: userDetail.creationTime,
-      pivot: 1 // used for excel purposes
+      pivot: 1, // used for excel purposes
     };
   }
 }
