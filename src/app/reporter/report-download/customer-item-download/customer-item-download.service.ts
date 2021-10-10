@@ -80,6 +80,9 @@ export class CustomerItemDownloadService {
       buyoutOrderId: customerItem.buyoutInfo
         ? customerItem.buyoutInfo.order
         : null,
+      buyoutTime: customerItem.buyoutInfo
+        ? customerItem.buyoutInfo.time
+          : null,
     };
 
     excelObj = this.attachCustomerToExcelObj(excelObj, customerItem);
