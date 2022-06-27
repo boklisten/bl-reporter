@@ -55,11 +55,7 @@ export class CustomerItemDownloadComponent implements OnInit {
       this.customerItemFilter["returned"] = undefined;
     }
 
-    if (this.buyout) {
-      this.customerItemFilter["buyout"] = true;
-    } else {
-      this.customerItemFilter["buyout"] = undefined;
-    }
+    this.customerItemFilter["buyout"] = this.buyout;
 
     this.wait = true;
     this.noCustomerItemsFound = false;
