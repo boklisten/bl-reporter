@@ -132,6 +132,7 @@ export class OrderDownloadService {
         orderId: order.id,
         branchId: order.branch,
         orderMadeBy: order.byCustomer ? "customer" : "branch",
+        employee: order.employee ?? null,
         customerId: order.customer,
         title: orderItem.title,
         amount: orderItem.amount,

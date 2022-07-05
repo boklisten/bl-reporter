@@ -50,6 +50,7 @@ export class CustomerItemDownloadService {
       deadline: customerItem.deadline
         ? this.dateService.convertToExcelDate(customerItem.deadline)
         : null,
+      blid: customerItem.blid ?? null,
 
       handoutBranch:
         customerItem.handoutInfo &&
