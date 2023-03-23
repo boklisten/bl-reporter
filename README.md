@@ -1,5 +1,7 @@
 # BlReporter
 
+NB. This project only currently supports node 16!
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
 
 ## Development server
