@@ -3,7 +3,7 @@
   "version": "0.4.6",
   "scripts": {
     "build": "ng build",
-    "serve": "ng serve",
+    "dev": "ng serve",
     "prettier": "prettier --write '**/*.{html,js,ts,tsx,md,json,yml,css,scss}' --ignore-path=.gitignore",
     "prettier:check": "prettier --check '**/*.{html,js,ts,tsx,md,json,yml,css,scss}' --ignore-path=.gitignore",
     "pkg": "ng-packagr -p package.json",
