@@ -2,15 +2,12 @@
   "name": "@boklisten/bl-reporter",
   "version": "0.4.6",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
+    "dev": "ng serve",
+    "prettier": "prettier --write '**/*.{html,js,ts,tsx,md,json,yml,css,scss}' --ignore-path=.gitignore",
+    "prettier:check": "prettier --check '**/*.{html,js,ts,tsx,md,json,yml,css,scss}' --ignore-path=.gitignore",
     "pkg": "ng-packagr -p package.json",
-    "pub": "npm run pkg && npm publish ./dist/",
-    "prettier": "prettier --write . --ignore-path=.gitignore"
+    "publish": "npm run pkg && npm publish ./dist/"
   },
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "ngPackage": {
