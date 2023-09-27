@@ -1,6 +1,6 @@
 {
   "name": "@boklisten/bl-reporter",
-  "version": "0.4.6",
+  "version": "0.4.12",
   "scripts": {
     "build": "ng build",
     "dev": "ng serve",
@@ -16,8 +16,6 @@
     },
     "allowedNonPeerDependencies": [
       "@angular/localize",
-      "@boklisten/bl-connect",
-      "@boklisten/bl-model",
       "@fortawesome/angular-fontawesome",
       "@fortawesome/fontawesome-svg-core",
       "@fortawesome/free-brands-svg-icons",
@@ -36,8 +34,6 @@
   },
   "dependencies": {
     "@angular/localize": "^11.2.3",
-    "@boklisten/bl-connect": "^0.19.0",
-    "@boklisten/bl-model": "^0.25.0",
     "@fortawesome/angular-fontawesome": "^0.8.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
@@ -65,7 +61,9 @@
     "@angular/platform-browser": "^11.2.3",
     "@angular/platform-browser-dynamic": "^11.2.3",
     "@auth0/angular-jwt": "^5.0.2",
-    "@boklisten/bl-login": "^1.1.4",
+    "@boklisten/bl-login": "^1.2.4",
+    "@boklisten/bl-connect": "^0.19.6",
+    "@boklisten/bl-model": "^0.25.20",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
