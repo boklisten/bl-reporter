@@ -1,6 +1,6 @@
 {
   "name": "@boklisten/bl-reporter",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "scripts": {
     "build": "ng build",
     "dev": "ng serve",
